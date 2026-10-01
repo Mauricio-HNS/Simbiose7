@@ -1,9 +1,9 @@
-# Apps
+# Simbiosis7 Applications
 
-Runnable DBX applications live here.
+Runnable Simbios7 applications live here.
 
 ## Directories
 
-- `desktop/` - the Vue frontend used by the Tauri desktop app and the Docker/web build.
+- `desktop/` — the Vue frontend used by the Tauri desktop application and web build.
 
-The Tauri native shell remains in `src-tauri/` because that is the conventional Tauri project location used by the existing build and release tooling.
+The native Tauri shell remains in `src-tauri/` as part of the desktop application architecture.
