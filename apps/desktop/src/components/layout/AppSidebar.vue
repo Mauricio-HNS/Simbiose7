@@ -1,3 +1,4 @@
+<!-- Simbiosis7 navigation layer: project-oriented navigation will wrap the existing database connection tree. -->
 <script setup lang="ts">
 import { computed, ref } from "vue";
 import { useI18n } from "vue-i18n";
