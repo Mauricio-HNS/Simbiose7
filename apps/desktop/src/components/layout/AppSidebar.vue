@@ -1,4 +1,3 @@
-<!-- Simbiosis7 navigation layer: project-oriented navigation will wrap the existing database connection tree. -->
 <script setup lang="ts">
 import { computed, ref } from "vue";
 import { useI18n } from "vue-i18n";
@@ -203,126 +202,186 @@ defineExpose({ focusSearch, locateTabInSidebar });
 </script>
 
 <template>
-  <div data-app-sidebar class="app-sidebar-panel h-full shrink-0 relative select-none" :class="classicLayout ? '' : 'rounded-md border border-border/80 bg-background'" :style="{ width: sidebarWidth + 'px' }" @keydown="onSidebarKeydown">
-    <div class="h-full flex flex-col overflow-hidden">
-      <div class="app-sidebar-toolbar flex items-center gap-px px-3 text-xs font-medium text-muted-foreground border-b bg-muted/20" :class="classicLayout ? 'h-9' : 'h-10'">
-        <span v-if="showConnectionMultiSelectToolbar" class="flex min-w-0 self-stretch items-center" data-tauri-drag-region>
-          <span class="truncate" data-tauri-drag-region>{{ t("sidebar.connections") }}</span>
-          <span class="ml-1.5 shrink-0 text-[11px] font-normal text-muted-foreground/80" data-connection-selection-count>
-            {{ t("connectionGroup.selectedConnections", { count: selectedConnectionCount }) }}
-          </span>
-        </span>
-        <LightDropdown
-          v-else
-          model-value=""
-          :items="connectionTransferItems"
-          :aria-label="connectionTransferLabel"
-          :trigger-title="connectionTransferLabel"
-          :trigger-icon="ArrowDownUp"
-          :trigger-label="connectionTransferLabel"
-          trigger-class="inline-flex h-7 min-w-0 items-center gap-1 rounded-md px-1 outline-none hover:bg-muted hover:text-foreground focus-visible:ring-0"
-          trigger-icon-class="h-3.5 w-3.5 shrink-0"
-          item-icon-class="h-3.5 w-3.5"
-          content-class="w-48"
-          :show-trigger-label="true"
-          :show-chevron="true"
-          :highlight-selected="false"
-          check-position="none"
-          align="start"
-          @update:model-value="selectConnectionTransferAction"
-        />
-        <span class="flex-1 self-stretch" data-tauri-drag-region />
-        <template v-if="showConnectionMultiSelectToolbar">
-          <LightTooltip :text="t('connectionGroup.createGroup')" side="bottom" :delay="0" :close-delay="0" nowrap>
-            <Button variant="ghost" size="icon" class="h-5 w-5" @click="openCreateSelectedGroupDialog">
-              <FolderPlus class="h-3 w-3" />
-            </Button>
-          </LightTooltip>
-          <LightTooltip :text="t('connectionGroup.moveToGroup')" side="bottom" :delay="0" :close-delay="0" nowrap>
-            <span class="inline-flex">
-              <LightDropdown
-                model-value=""
-                :items="moveGroupItems"
-                :aria-label="t('connectionGroup.moveToGroup')"
-                :trigger-icon="FolderInput"
-                trigger-class="inline-flex h-5 w-5 items-center justify-center rounded-md outline-none hover:bg-muted hover:text-foreground focus-visible:ring-0"
-                trigger-icon-class="h-3.5 w-3.5"
-                content-class="w-44"
-                :show-trigger-label="false"
-                :show-chevron="false"
-                :highlight-selected="false"
-                check-position="none"
-                align="end"
-                @update:model-value="moveSelectedConnectionsToGroup"
-              />
+  <div
+    data-app-sidebar
+    class="app-sidebar-panel relative h-full shrink-0 select-none"
+    :class="classicLayout ? '' : 'rounded-md border border-border/80 bg-background'"
+    :style="{ width: sidebarWidth + 'px' }"
+    @keydown="onSidebarKeydown"
+  >
+    <div class="flex h-full flex-col overflow-hidden">
+      <div class="s7-sidebar-brand border-b px-3 py-3">
+        <div class="flex items-center gap-2.5">
+          <div class="s7-sidebar-mark flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-primary/20 bg-primary/10 text-xs font-bold text-primary">
+            S7
+          </div>
+          <div class="min-w-0">
+            <div class="truncate text-xs font-bold tracking-[0.18em] text-foreground">SIMBIOSIS7</div>
+            <div class="truncate text-[10px] text-muted-foreground">Engineering Workspace</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="s7-nav-section px-2 py-3">
+        <div class="mb-2 px-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-muted-foreground/70">Workspace</div>
+        <button class="s7-nav-item s7-nav-active">
+          <span class="s7-nav-icon">⌂</span>
+          <span>Overview</span>
+        </button>
+        <button class="s7-nav-item">
+          <span class="s7-nav-icon">▣</span>
+          <span>Projects</span>
+        </button>
+        <button class="s7-nav-item">
+          <span class="s7-nav-icon">✦</span>
+          <span>AI & Agents</span>
+        </button>
+        <button class="s7-nav-item">
+          <span class="s7-nav-icon">◇</span>
+          <span>Knowledge</span>
+        </button>
+        <button class="s7-nav-item">
+          <span class="s7-nav-icon">⌘</span>
+          <span>MCP & Integrations</span>
+        </button>
+      </div>
+
+      <div class="s7-sidebar-divider mx-3" />
+
+      <div class="flex min-h-0 flex-1 flex-col">
+        <div class="app-sidebar-toolbar flex h-10 shrink-0 items-center gap-px border-b bg-muted/10 px-3 text-xs font-medium text-muted-foreground">
+          <span v-if="showConnectionMultiSelectToolbar" class="flex min-w-0 self-stretch items-center">
+            <span class="truncate">{{ t("sidebar.connections") }}</span>
+            <span class="ml-1.5 shrink-0 text-[11px] font-normal text-muted-foreground/80">
+              {{ t("connectionGroup.selectedConnections", { count: selectedConnectionCount }) }}
             </span>
-          </LightTooltip>
-          <LightTooltip :text="t('contextMenu.deleteSelectedConnections', { count: selectedConnectionCount })" side="bottom" :delay="0" :close-delay="0" nowrap>
-            <Button variant="ghost" size="icon" class="h-5 w-5 text-destructive hover:text-destructive" @click="showDeleteSelectedConfirm = true">
-              <Trash2 class="h-3 w-3" />
-            </Button>
-          </LightTooltip>
-          <LightTooltip :text="selectAllLabel" side="bottom" :delay="0" :close-delay="0" nowrap>
-            <Button variant="ghost" size="icon" class="h-5 w-5" @click="toggleAllConnectionsSelected">
-              <component :is="selectAllIcon" class="h-3 w-3" />
-            </Button>
-          </LightTooltip>
-          <LightTooltip :text="t('connectionGroup.exitMultiSelect')" side="bottom" :delay="0" :close-delay="0" nowrap>
-            <Button variant="ghost" size="icon" class="h-5 w-5" @click="clearConnectionMultiSelection">
-              <X class="h-3 w-3" />
-            </Button>
-          </LightTooltip>
-        </template>
-        <template v-else>
-          <span data-sidebar-toolbar-actions class="flex shrink-0 items-center gap-0.5">
-            <LightTooltip :text="t('sidebar.collapseAll')" side="bottom" :delay="0" :close-delay="0" nowrap>
-              <Button variant="ghost" size="icon" class="h-5 w-5" @click="collapseAllTreeNodes">
-                <ChevronsDownUp class="h-3 w-3" />
-              </Button>
-            </LightTooltip>
+          </span>
+          <LightDropdown
+            v-else
+            model-value=""
+            :items="connectionTransferItems"
+            :aria-label="connectionTransferLabel"
+            :trigger-title="connectionTransferLabel"
+            :trigger-icon="ArrowDownUp"
+            :trigger-label="connectionTransferLabel"
+            trigger-class="inline-flex h-7 min-w-0 items-center gap-1 rounded-md px-1 outline-none hover:bg-muted hover:text-foreground focus-visible:ring-0"
+            trigger-icon-class="h-3.5 w-3.5 shrink-0"
+            item-icon-class="h-3.5 w-3.5"
+            content-class="w-48"
+            :show-trigger-label="true"
+            :show-chevron="true"
+            :highlight-selected="false"
+            check-position="none"
+            align="start"
+            @update:model-value="selectConnectionTransferAction"
+          />
+          <span class="flex-1 self-stretch" />
+          <template v-if="showConnectionMultiSelectToolbar">
             <LightTooltip :text="t('connectionGroup.createGroup')" side="bottom" :delay="0" :close-delay="0" nowrap>
-              <Button variant="ghost" size="icon" class="h-5 w-5" @click="createNewGroup">
+              <Button variant="ghost" size="icon" class="h-5 w-5" @click="openCreateSelectedGroupDialog">
                 <FolderPlus class="h-3 w-3" />
               </Button>
             </LightTooltip>
-            <LightTooltip :text="t('contextMenu.refreshChildren')" side="bottom" :delay="0" :close-delay="0" nowrap>
-              <Button variant="ghost" size="icon" class="h-5 w-5" @click="refreshTree">
-                <RefreshCw class="h-3 w-3" />
+            <LightTooltip :text="t('connectionGroup.moveToGroup')" side="bottom" :delay="0" :close-delay="0" nowrap>
+              <span class="inline-flex">
+                <LightDropdown
+                  model-value=""
+                  :items="moveGroupItems"
+                  :aria-label="t('connectionGroup.moveToGroup')"
+                  :trigger-icon="FolderInput"
+                  trigger-class="inline-flex h-5 w-5 items-center justify-center rounded-md outline-none hover:bg-muted hover:text-foreground focus-visible:ring-0"
+                  trigger-icon-class="h-3.5 w-3.5"
+                  content-class="w-44"
+                  :show-trigger-label="false"
+                  :show-chevron="false"
+                  :highlight-selected="false"
+                  check-position="none"
+                  align="end"
+                  @update:model-value="moveSelectedConnectionsToGroup"
+                />
+              </span>
+            </LightTooltip>
+            <LightTooltip :text="t('contextMenu.deleteSelectedConnections', { count: selectedConnectionCount })" side="bottom" :delay="0" :close-delay="0" nowrap>
+              <Button variant="ghost" size="icon" class="h-5 w-5 text-destructive hover:text-destructive" @click="showDeleteSelectedConfirm = true">
+                <Trash2 class="h-3 w-3" />
               </Button>
             </LightTooltip>
-            <LightTooltip :text="t('sidebar.collapse')" side="bottom" :delay="0" :close-delay="0" nowrap>
-              <Button variant="ghost" size="icon" class="h-6 w-6" @click="emit('collapse')">
-                <ChevronsLeft class="h-3.5 w-3.5" />
+            <LightTooltip :text="selectAllLabel" side="bottom" :delay="0" :close-delay="0" nowrap>
+              <Button variant="ghost" size="icon" class="h-5 w-5" @click="toggleAllConnectionsSelected">
+                <component :is="selectAllIcon" class="h-3 w-3" />
               </Button>
             </LightTooltip>
-          </span>
-        </template>
+            <LightTooltip :text="t('connectionGroup.exitMultiSelect')" side="bottom" :delay="0" :close-delay="0" nowrap>
+              <Button variant="ghost" size="icon" class="h-5 w-5" @click="clearConnectionMultiSelection">
+                <X class="h-3 w-3" />
+              </Button>
+            </LightTooltip>
+          </template>
+          <template v-else>
+            <span data-sidebar-toolbar-actions class="flex shrink-0 items-center gap-0.5">
+              <LightTooltip :text="t('sidebar.collapseAll')" side="bottom" :delay="0" :close-delay="0" nowrap>
+                <Button variant="ghost" size="icon" class="h-5 w-5" @click="collapseAllTreeNodes">
+                  <ChevronsDownUp class="h-3 w-3" />
+                </Button>
+              </LightTooltip>
+              <LightTooltip :text="t('connectionGroup.createGroup')" side="bottom" :delay="0" :close-delay="0" nowrap>
+                <Button variant="ghost" size="icon" class="h-5 w-5" @click="createNewGroup">
+                  <FolderPlus class="h-3 w-3" />
+                </Button>
+              </LightTooltip>
+              <LightTooltip :text="t('contextMenu.refreshChildren')" side="bottom" :delay="0" :close-delay="0" nowrap>
+                <Button variant="ghost" size="icon" class="h-5 w-5" @click="refreshTree">
+                  <RefreshCw class="h-3 w-3" />
+                </Button>
+              </LightTooltip>
+              <LightTooltip :text="t('sidebar.collapse')" side="bottom" :delay="0" :close-delay="0" nowrap>
+                <Button variant="ghost" size="icon" class="h-6 w-6" @click="emit('collapse')">
+                  <ChevronsLeft class="h-3.5 w-3.5" />
+                </Button>
+              </LightTooltip>
+            </span>
+          </template>
+        </div>
+
+        <div class="s7-db-heading flex items-center justify-between px-3 py-2">
+          <div>
+            <div class="text-[10px] font-semibold uppercase tracking-[0.14em] text-muted-foreground/70">Data</div>
+            <div class="text-xs font-medium">Database connections</div>
+          </div>
+          <span class="rounded-full bg-muted px-2 py-0.5 text-[10px] text-muted-foreground">{{ connectionStore.connections.length }}</span>
+        </div>
+
+        <div class="min-h-0 flex-1">
+          <ConnectionTree ref="connectionTreeRef" @open-settings="(initialTab) => emit('open-settings', initialTab)" @add-to-ai="(nodes) => emit('add-to-ai', nodes)" />
+        </div>
       </div>
-      <div class="flex-1 min-h-0">
-        <ConnectionTree ref="connectionTreeRef" @open-settings="(initialTab) => emit('open-settings', initialTab)" @add-to-ai="(nodes) => emit('add-to-ai', nodes)" />
+
+      <div class="s7-sidebar-footer border-t px-3 py-2">
+        <div class="flex items-center justify-between">
+          <span class="text-[10px] text-muted-foreground/70">Simbiosis7 Platform</span>
+          <button class="text-[10px] text-muted-foreground hover:text-foreground" @click="emit('open-settings', 'general')">Settings</button>
+        </div>
       </div>
+
       <PluginShortcutBar v-if="settingsStore.editorSettings.pluginShortcuts.enabled && settingsStore.editorSettings.pluginShortcuts.position === 'sidebar-bottom'" position="sidebar-bottom" />
     </div>
+
     <div class="panel-resize-handle panel-resize-handle--right" @pointerdown="emit('startResize', $event)" />
+
     <Dialog v-model:open="showDeleteSelectedConfirm">
       <DialogContent class="sm:max-w-[400px]">
-        <DialogHeader>
-          <DialogTitle>{{ t("contextMenu.confirmDeleteTitle") }}</DialogTitle>
-        </DialogHeader>
-        <p class="text-sm text-muted-foreground">
-          {{ t("contextMenu.confirmDeleteSelectedMessage", { count: selectedConnectionCount }) }}
-        </p>
+        <DialogHeader><DialogTitle>{{ t("contextMenu.confirmDeleteTitle") }}</DialogTitle></DialogHeader>
+        <p class="text-sm text-muted-foreground">{{ t("contextMenu.confirmDeleteSelectedMessage", { count: selectedConnectionCount }) }}</p>
         <DialogFooter>
           <Button variant="outline" @click="showDeleteSelectedConfirm = false">{{ t("dangerDialog.cancel") }}</Button>
           <Button variant="destructive" @click="confirmDeleteSelectedConnections">{{ t("contextMenu.deleteSelectedConnections", { count: selectedConnectionCount }) }}</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
+
     <Dialog v-model:open="showCreateSelectedGroupDialog">
       <DialogContent class="sm:max-w-[360px]">
-        <DialogHeader>
-          <DialogTitle>{{ t("connectionGroup.createGroup") }}</DialogTitle>
-        </DialogHeader>
+        <DialogHeader><DialogTitle>{{ t("connectionGroup.createGroup") }}</DialogTitle></DialogHeader>
         <Input v-model="selectedGroupName" :placeholder="t('connectionGroup.groupNamePlaceholder')" @keydown.enter.prevent="confirmCreateSelectedGroup" />
         <DialogFooter>
           <Button variant="outline" @click="showCreateSelectedGroupDialog = false">{{ t("dangerDialog.cancel") }}</Button>
@@ -332,3 +391,50 @@ defineExpose({ focusSearch, locateTabInSidebar });
     </Dialog>
   </div>
 </template>
+
+<style>
+.s7-sidebar-brand {
+  background: linear-gradient(180deg, hsl(var(--muted) / 0.35), transparent);
+}
+
+.s7-sidebar-mark {
+  box-shadow: 0 8px 24px -16px hsl(var(--primary) / 0.8);
+}
+
+.s7-nav-item {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 0.65rem;
+  border-radius: 0.5rem;
+  padding: 0.48rem 0.55rem;
+  text-align: left;
+  font-size: 0.76rem;
+  color: hsl(var(--muted-foreground));
+}
+
+.s7-nav-item:hover {
+  background: hsl(var(--muted) / 0.55);
+  color: hsl(var(--foreground));
+}
+
+.s7-nav-active {
+  background: hsl(var(--primary) / 0.10);
+  color: hsl(var(--foreground));
+  box-shadow: inset 2px 0 0 hsl(var(--primary));
+}
+
+.s7-nav-icon {
+  width: 1rem;
+  text-align: center;
+  color: hsl(var(--primary));
+}
+
+.s7-sidebar-divider {
+  border-top: 1px solid hsl(var(--border) / 0.7);
+}
+
+.s7-db-heading {
+  background: hsl(var(--muted) / 0.12);
+}
+</style>
