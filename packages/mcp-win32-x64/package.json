@@ -1,11 +1,11 @@
 {
-  "name": "@dbx-app/mcp-win32-x64",
+  "name": "@simbiose7/mcp-win32-x64",
   "version": "0.4.102",
-  "description": "Precompiled DBX MCP Rust binary for win32 x64",
+  "description": "Precompiled Simbiose7 MCP Rust binary for win32 x64",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/t8y2/dbx",
+    "url": "https://github.com/Mauricio-HNS/Simbiose7",
     "directory": "packages/mcp-win32-x64"
   },
   "os": [
@@ -15,7 +15,7 @@
     "x64"
   ],
   "bin": {
-    "dbx-mcp-native": "bin/dbx-mcp.exe"
+    "simbiose7-mcp-native": "bin/simbiose7-mcp.exe"
   },
   "files": [
     "bin"
