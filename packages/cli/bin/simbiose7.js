@@ -7,12 +7,12 @@ import { dirname, join } from "node:path";
 
 const require = createRequire(import.meta.url);
 const platformPackages = {
-  "darwin-arm64": "@dbx-app/cli-darwin-arm64",
-  "darwin-x64": "@dbx-app/cli-darwin-x64",
-  "linux-arm64": "@dbx-app/cli-linux-arm64-gnu",
-  "linux-x64": "@dbx-app/cli-linux-x64-gnu",
-  "win32-arm64": "@dbx-app/cli-win32-arm64",
-  "win32-x64": "@dbx-app/cli-win32-x64",
+  "darwin-arm64": "@simbiose7/cli-darwin-arm64",
+  "darwin-x64": "@simbiose7/cli-darwin-x64",
+  "linux-arm64": "@simbiose7/cli-linux-arm64-gnu",
+  "linux-x64": "@simbiose7/cli-linux-x64-gnu",
+  "win32-arm64": "@simbiose7/cli-win32-arm64",
+  "win32-x64": "@simbiose7/cli-win32-x64",
 };
 
 const platformKey = `${process.platform}-${process.arch}`;
@@ -25,14 +25,14 @@ if (!packageName) {
 let binary;
 try {
   const packageJson = require.resolve(`${packageName}/package.json`);
-  binary = join(dirname(packageJson), "bin", process.platform === "win32" ? "dbx.exe" : "dbx");
+  binary = join(dirname(packageJson), "bin", process.platform === "win32" ? "simbiose7.exe" : "simbiose7");
 } catch {
-  console.error(`The optional package ${packageName} was not installed. Reinstall @dbx-app/cli without --no-optional.`);
+  console.error(`The optional package ${packageName} was not installed. Reinstall @simbiose7/cli without --no-optional.`);
   process.exit(1);
 }
 
 if (!existsSync(binary)) {
-  console.error(`DBX CLI binary was not found at ${binary}`);
+  console.error(`Simbiose7 CLI binary was not found at ${binary}`);
   process.exit(1);
 }
 
