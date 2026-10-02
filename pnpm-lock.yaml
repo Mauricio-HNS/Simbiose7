@@ -57,7 +57,7 @@ importers:
       '@codemirror/view':
         specifier: ^6.43.0
         version: 6.43.0
-      '@dbx-app/mongo-shell':
+      '@simbiose7/mongo-shell':
         specifier: workspace:^
         version: link:packages/mongo-shell
       '@internationalized/date':
@@ -289,22 +289,22 @@ importers:
 
   packages/cli:
     optionalDependencies:
-      '@dbx-app/cli-darwin-arm64':
+      '@simbiose7/cli-darwin-arm64':
         specifier: 0.4.102
         version: link:../cli-darwin-arm64
-      '@dbx-app/cli-darwin-x64':
+      '@simbiose7/cli-darwin-x64':
         specifier: 0.4.102
         version: link:../cli-darwin-x64
-      '@dbx-app/cli-linux-arm64-gnu':
+      '@simbiose7/cli-linux-arm64-gnu':
         specifier: 0.4.102
         version: link:../cli-linux-arm64-gnu
-      '@dbx-app/cli-linux-x64-gnu':
+      '@simbiose7/cli-linux-x64-gnu':
         specifier: 0.4.102
         version: link:../cli-linux-x64-gnu
-      '@dbx-app/cli-win32-arm64':
+      '@simbiose7/cli-win32-arm64':
         specifier: 0.4.102
         version: link:../cli-win32-arm64
-      '@dbx-app/cli-win32-x64':
+      '@simbiose7/cli-win32-x64':
         specifier: 0.4.102
         version: link:../cli-win32-x64
 
@@ -337,22 +337,22 @@ importers:
         specifier: ^4.1.8
         version: 4.1.8(@types/node@22.19.19)(@vitest/coverage-v8@4.1.8)(happy-dom@20.10.6)(vite@8.2.1(@types/node@22.19.19)(esbuild@0.28.0)(jiti@2.7.0)(stylus@0.57.0)(tsx@4.22.4)(yaml@2.8.4))
     optionalDependencies:
-      '@dbx-app/mcp-darwin-arm64':
+      '@simbiose7/mcp-darwin-arm64':
         specifier: 0.4.102
         version: link:../mcp-darwin-arm64
-      '@dbx-app/mcp-darwin-x64':
+      '@simbiose7/mcp-darwin-x64':
         specifier: 0.4.102
         version: link:../mcp-darwin-x64
-      '@dbx-app/mcp-linux-arm64-gnu':
+      '@simbiose7/mcp-linux-arm64-gnu':
         specifier: 0.4.102
         version: link:../mcp-linux-arm64-gnu
-      '@dbx-app/mcp-linux-x64-gnu':
+      '@simbiose7/mcp-linux-x64-gnu':
         specifier: 0.4.102
         version: link:../mcp-linux-x64-gnu
-      '@dbx-app/mcp-win32-arm64':
+      '@simbiose7/mcp-win32-arm64':
         specifier: 0.4.102
         version: link:../mcp-win32-arm64
-      '@dbx-app/mcp-win32-x64':
+      '@simbiose7/mcp-win32-x64':
         specifier: 0.4.102
         version: link:../mcp-win32-x64
 
@@ -368,22 +368,22 @@ importers:
 
   packages/plugin-cli:
     optionalDependencies:
-      '@dbx-app/plugin-cli-darwin-arm64':
+      '@simbiose7/plugin-cli-darwin-arm64':
         specifier: 0.1.9
         version: link:../plugin-cli-darwin-arm64
-      '@dbx-app/plugin-cli-darwin-x64':
+      '@simbiose7/plugin-cli-darwin-x64':
         specifier: 0.1.9
         version: link:../plugin-cli-darwin-x64
-      '@dbx-app/plugin-cli-linux-arm64-gnu':
+      '@simbiose7/plugin-cli-linux-arm64-gnu':
         specifier: 0.1.9
         version: link:../plugin-cli-linux-arm64-gnu
-      '@dbx-app/plugin-cli-linux-x64-gnu':
+      '@simbiose7/plugin-cli-linux-x64-gnu':
         specifier: 0.1.9
         version: link:../plugin-cli-linux-x64-gnu
-      '@dbx-app/plugin-cli-win32-arm64':
+      '@simbiose7/plugin-cli-win32-arm64':
         specifier: 0.1.9
         version: link:../plugin-cli-win32-arm64
-      '@dbx-app/plugin-cli-win32-x64':
+      '@simbiose7/plugin-cli-win32-x64':
         specifier: 0.1.9
         version: link:../plugin-cli-win32-x64
 
