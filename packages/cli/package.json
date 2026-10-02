@@ -1,23 +1,23 @@
 {
-  "name": "@dbx-app/cli",
+  "name": "@simbiose7/cli",
   "version": "0.4.102",
-  "description": "Command line interface for DBX database connections, schema, and safe queries",
+  "description": "Command line interface for Simbiose7 database connections, schema, and safe queries",
   "keywords": [
     "ai-agent",
     "automation",
     "cli",
     "codex",
     "database",
-    "dbx",
+    "simbiose7",
     "mysql",
     "postgresql",
     "terminal"
   ],
-  "homepage": "https://github.com/t8y2/dbx/tree/main/packages/cli",
+  "homepage": "https://github.com/Mauricio-HNS/Simbiose7/tree/main/packages/cli",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/t8y2/dbx",
+    "url": "https://github.com/Mauricio-HNS/Simbiose7",
     "directory": "packages/cli"
   },
   "bin": {
@@ -34,12 +34,12 @@
     "prepublishOnly": "node --check bin/dbx.js"
   },
   "optionalDependencies": {
-    "@dbx-app/cli-darwin-arm64": "0.4.102",
-    "@dbx-app/cli-darwin-x64": "0.4.102",
-    "@dbx-app/cli-linux-arm64-gnu": "0.4.102",
-    "@dbx-app/cli-linux-x64-gnu": "0.4.102",
-    "@dbx-app/cli-win32-arm64": "0.4.102",
-    "@dbx-app/cli-win32-x64": "0.4.102"
+    "@simbiose7/cli-darwin-arm64": "0.4.102",
+    "@simbiose7/cli-darwin-x64": "0.4.102",
+    "@simbiose7/cli-linux-arm64-gnu": "0.4.102",
+    "@simbiose7/cli-linux-x64-gnu": "0.4.102",
+    "@simbiose7/cli-win32-arm64": "0.4.102",
+    "@simbiose7/cli-win32-x64": "0.4.102"
   },
   "engines": {
     "node": ">=18.18.0"
