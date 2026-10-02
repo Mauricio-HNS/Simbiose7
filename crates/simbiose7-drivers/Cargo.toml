@@ -1,5 +1,5 @@
 [package]
-name = "dbx-drivers"
+name = "simbiose7-drivers"
 version = "0.1.0"
 edition = "2021"
 license = "Apache-2.0"
@@ -9,27 +9,27 @@ publish = false
 default = []
 duckdb-sidecar = []
 dynamodb = ["dep:aws-sdk-dynamodb"]
-mq-admin = ["dbx-types/mq-admin"]
+mq-admin = ["simbiose7-types/mq-admin"]
 sqlite-bundled = ["rusqlite/bundled"]
 sqlite-sqlcipher = ["rusqlite/bundled-sqlcipher-vendored-openssl"]
 sqlite-multiple-ciphers = ["dep:libsqlite3-hotbundle"]
-test-support = ["dbx-driver-agent/test-support", "dbx-driver-mysql/test-support", "dbx-driver-redis/test-support", "dbx-driver-support/test-support", "dbx-platform/test-support"]
+test-support = ["simbiose7-driver-agent/test-support", "simbiose7-driver-mysql/test-support", "simbiose7-driver-redis/test-support", "simbiose7-driver-support/test-support", "simbiose7-platform/test-support"]
 
 [dependencies]
-dbx-driver-agent = { path = "../dbx-driver-agent" }
-dbx-driver-support = { path = "../dbx-driver-support" }
-dbx-driver-elasticsearch = { path = "../dbx-driver-elasticsearch" }
-dbx-driver-mongodb = { path = "../dbx-driver-mongodb" }
-dbx-driver-mysql = { path = "../dbx-driver-mysql" }
-dbx-driver-postgres = { path = "../dbx-driver-postgres" }
-dbx-driver-redis = { path = "../dbx-driver-redis" }
-dbx-driver-sqlserver = { path = "../dbx-driver-sqlserver" }
-dbx-types = { path = "../dbx-types", default-features = false }
-dbx-sql-core = { path = "../dbx-sql-core" }
-dbx-sql-data = { path = "../dbx-sql-data" }
-dbx-sql-dialect = { path = "../dbx-sql-dialect" }
-dbx-platform = { path = "../dbx-platform", features = ["host-prompts", "downloads"] }
-dbx-sqlite-worker = { path = "../dbx-sqlite-worker", default-features = false }
+simbiose7-driver-agent = { path = "../simbiose7-driver-agent" }
+simbiose7-driver-support = { path = "../simbiose7-driver-support" }
+simbiose7-driver-elasticsearch = { path = "../simbiose7-driver-elasticsearch" }
+simbiose7-driver-mongodb = { path = "../simbiose7-driver-mongodb" }
+simbiose7-driver-mysql = { path = "../simbiose7-driver-mysql" }
+simbiose7-driver-postgres = { path = "../simbiose7-driver-postgres" }
+simbiose7-driver-redis = { path = "../simbiose7-driver-redis" }
+simbiose7-driver-sqlserver = { path = "../simbiose7-driver-sqlserver" }
+simbiose7-types = { path = "../simbiose7-types", default-features = false }
+simbiose7-sql-core = { path = "../simbiose7-sql-core" }
+simbiose7-sql-data = { path = "../simbiose7-sql-data" }
+simbiose7-sql-dialect = { path = "../simbiose7-sql-dialect" }
+simbiose7-platform = { path = "../simbiose7-platform", features = ["host-prompts", "downloads"] }
+simbiose7-sqlite-worker = { path = "../simbiose7-sqlite-worker", default-features = false }
 serde = { version = "1.0", features = ["derive"] }
 serde_json = { version = "1.0", features = ["arbitrary_precision", "preserve_order"] }
 json5 = "0.4"
@@ -77,8 +77,8 @@ tempfile = "3"
 windows-sys = { version = "0.61", features = ["Win32_Storage_FileSystem", "Win32_Foundation", "Win32_Security"] }
 
 [dev-dependencies]
-dbx-driver-support = { path = "../dbx-driver-support", features = ["test-support"] }
-dbx-platform = { path = "../dbx-platform", features = ["test-support"] }
+simbiose7-driver-support = { path = "../simbiose7-driver-support", features = ["test-support"] }
+simbiose7-platform = { path = "../simbiose7-platform", features = ["test-support"] }
 mysql_common = { git = "https://github.com/t8y2/rust_mysql_common.git", rev = "47740d85a8277167a5717afac785d37b46a36296", default-features = false }
 tokio = { version = "1", features = ["test-util"] }
 tokio-openssl = "0.6"
