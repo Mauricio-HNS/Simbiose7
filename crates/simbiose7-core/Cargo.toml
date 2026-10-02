@@ -1,5 +1,5 @@
 [package]
-name = "dbx-core"
+name = "simbiose7-core"
 version = "0.1.0"
 edition = "2021"
 license = "Apache-2.0"
@@ -7,15 +7,15 @@ license = "Apache-2.0"
 [features]
 test-support = []
 default = ["duckdb-sidecar", "dynamodb", "mq-admin", "sqlite-sqlcipher", "system-fonts"]
-duckdb-sidecar = ["dbx-sql/duckdb-sidecar", "dbx-drivers/duckdb-sidecar"]
-dynamodb = ["dbx-drivers/dynamodb"]
-mq-admin = ["dep:rumqttc", "dbx-types/mq-admin", "dbx-drivers/mq-admin"]
-sqlite-sqlcipher = ["rusqlite/bundled-sqlcipher-vendored-openssl", "dbx-drivers/sqlite-sqlcipher"]
-sqlite-multiple-ciphers = ["dbx-drivers/sqlite-multiple-ciphers"]
+duckdb-sidecar = ["simbiose7-sql/duckdb-sidecar", "simbiose7-drivers/duckdb-sidecar"]
+dynamodb = ["simbiose7-drivers/dynamodb"]
+mq-admin = ["dep:rumqttc", "simbiose7-types/mq-admin", "simbiose7-drivers/mq-admin"]
+sqlite-sqlcipher = ["rusqlite/bundled-sqlcipher-vendored-openssl", "simbiose7-drivers/sqlite-sqlcipher"]
+sqlite-multiple-ciphers = ["simbiose7-drivers/sqlite-multiple-ciphers"]
 # Keeps bundled SQLite for consumers that enable no other sqlite source
-# (dbx-cli, dbx-mcp); do not combine with the cipher features.
-sqlite-bundled = ["rusqlite/bundled", "dbx-drivers/sqlite-bundled"]
-openapi = ["dbx-types/openapi", "dbx-sql/openapi"]
+# (simbiose7-cli, simbiose7-mcp); do not combine with the cipher features.
+sqlite-bundled = ["rusqlite/bundled", "simbiose7-drivers/sqlite-bundled"]
+openapi = ["simbiose7-types/openapi", "simbiose7-sql/openapi"]
 # OS keyring storage for the secret-store key material: macOS/Windows
 # keychain via the keyring crate, Linux Secret Service via the pure-Rust
 # secret-service/zbus client so cross builds (zigbuild) link no C libdbus.
@@ -24,13 +24,13 @@ os-keyring = ["dep:keyring", "dep:secret-service"]
 system-fonts = ["font-kit"]
 
 [dependencies]
-dbx-drivers = { path = "../dbx-drivers", default-features = false }
-dbx-sql = { path = "../dbx-sql", default-features = false }
-dbx-plugin-runtime = { path = "../dbx-plugin-runtime" }
-dbx-formats = { path = "../dbx-formats" }
-dbx-types = { path = "../dbx-types", default-features = false }
-dbx-ai-provider = { path = "../dbx-ai-provider" }
-dbx-platform = { path = "../dbx-platform", features = ["host-prompts", "downloads"] }
+simbiose7-drivers = { path = "../simbiose7-drivers", default-features = false }
+simbiose7-sql = { path = "../simbiose7-sql", default-features = false }
+simbiose7-plugin-runtime = { path = "../simbiose7-plugin-runtime" }
+simbiose7-formats = { path = "../simbiose7-formats" }
+simbiose7-types = { path = "../simbiose7-types", default-features = false }
+simbiose7-ai-provider = { path = "../simbiose7-ai-provider" }
+simbiose7-platform = { path = "../simbiose7-platform", features = ["host-prompts", "downloads"] }
 serde = { version = "1.0", features = ["derive"] }
 serde_json = { version = "1.0", features = ["arbitrary_precision", "preserve_order"] }
 serde_yaml_ng = "0.10"
@@ -93,11 +93,11 @@ tempfile = "3"
 windows-sys = { version = "0.61", features = ["Win32_Storage_FileSystem", "Win32_Foundation", "Win32_Security"] }
 
 [dev-dependencies]
-dbx-core = { path = ".", default-features = false, features = ["test-support"] }
+simbiose7-core = { path = ".", default-features = false, features = ["test-support"] }
 zstd = "0.13"
-dbx-drivers = { path = "../dbx-drivers", default-features = false, features = ["test-support"] }
-dbx-plugin-runtime = { path = "../dbx-plugin-runtime", features = ["test-support"] }
-dbx-platform = { path = "../dbx-platform", features = ["test-support"] }
+simbiose7-drivers = { path = "../simbiose7-drivers", default-features = false, features = ["test-support"] }
+simbiose7-plugin-runtime = { path = "../simbiose7-plugin-runtime", features = ["test-support"] }
+simbiose7-platform = { path = "../simbiose7-platform", features = ["test-support"] }
 tokio = { version = "1", features = ["test-util"] }
 
 [target.'cfg(all(unix, not(target_os = "redox")))'.dependencies]
