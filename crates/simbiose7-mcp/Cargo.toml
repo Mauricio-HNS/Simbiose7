@@ -1,31 +1,31 @@
 [package]
-name = "dbx-mcp"
+name = "simbiose7-mcp"
 version = "0.4.102"
 edition = "2021"
 license = "Apache-2.0"
 
 [features]
 default = ["duckdb-sidecar", "mq-admin", "sqlite-bundled"]
-duckdb-sidecar = ["dbx-core/duckdb-sidecar"]
-mq-admin = ["dbx-core/mq-admin"]
+duckdb-sidecar = ["simbiose7-core/duckdb-sidecar"]
+mq-admin = ["simbiose7-core/mq-admin"]
 # `--no-default-features` runs (skip DuckDB) must re-add this via
 # `--features sqlite-bundled`, otherwise tests/bins link the system SQLite.
-sqlite-bundled = ["dbx-core/sqlite-bundled"]
+sqlite-bundled = ["simbiose7-core/sqlite-bundled"]
 # Native macOS/Windows builds enable this so CLI/MCP can read the OS
 # keychain key Desktop provisioned during the data security upgrade; the
 # Linux zigbuild legs cannot link the dbus Secret Service backend and keep
 # falling back to the managed .dbx/secret.key file.
-os-keyring = ["dbx-core/os-keyring"]
+os-keyring = ["simbiose7-core/os-keyring"]
 transaction-test-hooks = []
 
 [[bin]]
-name = "dbx-mcp"
+name = "simbiose7-mcp"
 path = "src/main.rs"
 
 [dependencies]
 async-trait = "0.1"
 futures = "0.3"
-dbx-core = { path = "../dbx-core", default-features = false }
+simbiose7-core = { path = "../simbiose7-core", default-features = false }
 dirs = "6"
 env_logger = "0.11"
 log = "0.4"
