@@ -20,9 +20,9 @@ mod webview2_recovery;
 mod window_state_guard;
 
 use commands::connection::AppState;
-use dbx_core::sql_dialect::dialect_loader::{register_core_dialects, DialectPluginLoader, DialectRegistry};
-use dbx_core::sql_dialect::hot_reload::DialectHotReload;
-use dbx_core::storage::{maybe_import_user_data_db, DesktopIconTheme, DesktopSettings, Storage};
+use simbiose7_core::sql_dialect::dialect_loader::{register_core_dialects, DialectPluginLoader, DialectRegistry};
+use simbiose7_core::sql_dialect::hot_reload::DialectHotReload;
+use simbiose7_core::storage::{maybe_import_user_data_db, DesktopIconTheme, DesktopSettings, Storage};
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::Arc;
 use std::time::{Duration, Instant};
@@ -774,17 +774,17 @@ fn locale_family(locale: &str) -> LocaleFamily {
 
 fn tray_menu_labels_for_locale(locale: &str) -> (&'static str, &'static str) {
     match locale_family(locale) {
-        LocaleFamily::SimplifiedChinese => ("显示 DBX", "退出 DBX"),
-        LocaleFamily::TraditionalChinese => ("顯示 DBX", "退出 DBX"),
-        LocaleFamily::Japanese => ("DBXを表示", "DBXを終了"),
-        LocaleFamily::Korean => ("DBX 표시", "DBX 종료"),
-        LocaleFamily::Azerbaijani => ("DBX-i göstər", "DBX-dən çıx"),
-        LocaleFamily::Spanish => ("Mostrar DBX", "Salir de DBX"),
-        LocaleFamily::Italian => ("Mostra DBX", "Esci da DBX"),
-        LocaleFamily::Turkish => ("DBX'i Göster", "DBX'ten Çık"),
-        LocaleFamily::Portuguese => ("Mostrar DBX", "Sair do DBX"),
-        LocaleFamily::Russian => ("Показать DBX", "Выйти из DBX"),
-        LocaleFamily::English => ("Show DBX", "Quit DBX"),
+        LocaleFamily::SimplifiedChinese => ("显示 SIMBIOSE7", "退出 SIMBIOSE7"),
+        LocaleFamily::TraditionalChinese => ("顯示 SIMBIOSE7", "退出 SIMBIOSE7"),
+        LocaleFamily::Japanese => ("SIMBIOSE7を表示", "SIMBIOSE7を終了"),
+        LocaleFamily::Korean => ("SIMBIOSE7 표시", "SIMBIOSE7 종료"),
+        LocaleFamily::Azerbaijani => ("SIMBIOSE7-i göstər", "SIMBIOSE7-dən çıx"),
+        LocaleFamily::Spanish => ("Mostrar SIMBIOSE7", "Salir de SIMBIOSE7"),
+        LocaleFamily::Italian => ("Mostra SIMBIOSE7", "Esci da SIMBIOSE7"),
+        LocaleFamily::Turkish => ("SIMBIOSE7'i Göster", "SIMBIOSE7'ten Çık"),
+        LocaleFamily::Portuguese => ("Mostrar SIMBIOSE7", "Sair do SIMBIOSE7"),
+        LocaleFamily::Russian => ("Показать SIMBIOSE7", "Выйти из SIMBIOSE7"),
+        LocaleFamily::English => ("Show SIMBIOSE7", "Quit SIMBIOSE7"),
     }
 }
 
@@ -871,7 +871,7 @@ fn setup_desktop_tray<R: tauri::Runtime, M: Manager<R>>(
 ) -> tauri::Result<()> {
     let menu = build_tray_menu(manager)?;
     let mut tray =
-        TrayIconBuilder::<R>::with_id(DESKTOP_TRAY_ID).tooltip("DBX").menu(&menu).show_menu_on_left_click(false);
+        TrayIconBuilder::<R>::with_id(DESKTOP_TRAY_ID).tooltip("SIMBIOSE7").menu(&menu).show_menu_on_left_click(false);
     #[cfg(target_os = "macos")]
     {
         tray = tray.icon(MACOS_TRAY_ICON).icon_as_template(true);
@@ -1033,38 +1033,38 @@ mod tests {
 
     #[test]
     fn tray_menu_labels_follow_locale() {
-        assert_eq!(tray_menu_labels_for_locale("zh-CN"), ("显示 DBX", "退出 DBX"));
-        assert_eq!(tray_menu_labels_for_locale("zh_CN"), ("显示 DBX", "退出 DBX"));
-        assert_eq!(tray_menu_labels_for_locale("zh-Hans-CN"), ("显示 DBX", "退出 DBX"));
-        assert_eq!(tray_menu_labels_for_locale("zh"), ("显示 DBX", "退出 DBX"));
-        assert_eq!(tray_menu_labels_for_locale("zh-TW"), ("顯示 DBX", "退出 DBX"));
-        assert_eq!(tray_menu_labels_for_locale("zh-Hant-HK"), ("顯示 DBX", "退出 DBX"));
-        assert_eq!(tray_menu_labels_for_locale("zh-MO"), ("顯示 DBX", "退出 DBX"));
-        assert_eq!(tray_menu_labels_for_locale("ja-JP"), ("DBXを表示", "DBXを終了"));
-        assert_eq!(tray_menu_labels_for_locale("ko-KR"), ("DBX 표시", "DBX 종료"));
-        assert_eq!(tray_menu_labels_for_locale("az-AZ"), ("DBX-i göstər", "DBX-dən çıx"));
-        assert_eq!(tray_menu_labels_for_locale("es-ES"), ("Mostrar DBX", "Salir de DBX"));
-        assert_eq!(tray_menu_labels_for_locale("it-IT"), ("Mostra DBX", "Esci da DBX"));
-        assert_eq!(tray_menu_labels_for_locale("pt-BR"), ("Mostrar DBX", "Sair do DBX"));
-        assert_eq!(tray_menu_labels_for_locale("tr-TR"), ("DBX'i Göster", "DBX'ten Çık"));
-        assert_eq!(tray_menu_labels_for_locale("ru-RU"), ("Показать DBX", "Выйти из DBX"));
-        assert_eq!(tray_menu_labels_for_locale("en-US"), ("Show DBX", "Quit DBX"));
+        assert_eq!(tray_menu_labels_for_locale("zh-CN"), ("显示 SIMBIOSE7", "退出 SIMBIOSE7"));
+        assert_eq!(tray_menu_labels_for_locale("zh_CN"), ("显示 SIMBIOSE7", "退出 SIMBIOSE7"));
+        assert_eq!(tray_menu_labels_for_locale("zh-Hans-CN"), ("显示 SIMBIOSE7", "退出 SIMBIOSE7"));
+        assert_eq!(tray_menu_labels_for_locale("zh"), ("显示 SIMBIOSE7", "退出 SIMBIOSE7"));
+        assert_eq!(tray_menu_labels_for_locale("zh-TW"), ("顯示 SIMBIOSE7", "退出 SIMBIOSE7"));
+        assert_eq!(tray_menu_labels_for_locale("zh-Hant-HK"), ("顯示 SIMBIOSE7", "退出 SIMBIOSE7"));
+        assert_eq!(tray_menu_labels_for_locale("zh-MO"), ("顯示 SIMBIOSE7", "退出 SIMBIOSE7"));
+        assert_eq!(tray_menu_labels_for_locale("ja-JP"), ("SIMBIOSE7を表示", "SIMBIOSE7を終了"));
+        assert_eq!(tray_menu_labels_for_locale("ko-KR"), ("SIMBIOSE7 표시", "SIMBIOSE7 종료"));
+        assert_eq!(tray_menu_labels_for_locale("az-AZ"), ("SIMBIOSE7-i göstər", "SIMBIOSE7-dən çıx"));
+        assert_eq!(tray_menu_labels_for_locale("es-ES"), ("Mostrar SIMBIOSE7", "Salir de SIMBIOSE7"));
+        assert_eq!(tray_menu_labels_for_locale("it-IT"), ("Mostra SIMBIOSE7", "Esci da SIMBIOSE7"));
+        assert_eq!(tray_menu_labels_for_locale("pt-BR"), ("Mostrar SIMBIOSE7", "Sair do SIMBIOSE7"));
+        assert_eq!(tray_menu_labels_for_locale("tr-TR"), ("SIMBIOSE7'i Göster", "SIMBIOSE7'ten Çık"));
+        assert_eq!(tray_menu_labels_for_locale("ru-RU"), ("Показать SIMBIOSE7", "Выйти из SIMBIOSE7"));
+        assert_eq!(tray_menu_labels_for_locale("en-US"), ("Show SIMBIOSE7", "Quit SIMBIOSE7"));
         // Unknown and empty locales fall back to English; "ita" must not match "it".
-        assert_eq!(tray_menu_labels_for_locale("ita"), ("Show DBX", "Quit DBX"));
-        assert_eq!(tray_menu_labels_for_locale(""), ("Show DBX", "Quit DBX"));
+        assert_eq!(tray_menu_labels_for_locale("ita"), ("Show SIMBIOSE7", "Quit SIMBIOSE7"));
+        assert_eq!(tray_menu_labels_for_locale(""), ("Show SIMBIOSE7", "Quit SIMBIOSE7"));
     }
 
     #[test]
     fn app_menu_labels_follow_locale() {
-        assert_eq!(app_menu_quit_label("zh-CN", "DBX"), "退出 DBX");
-        assert_eq!(app_menu_quit_label("zh-TW", "DBX"), "退出 DBX");
-        assert_eq!(app_menu_quit_label("ja-JP", "DBX"), "DBXを終了");
-        assert_eq!(app_menu_quit_label("ko-KR", "DBX"), "DBX 종료");
-        assert_eq!(app_menu_quit_label("tr-TR", "DBX"), "DBX Uygulamasından Çık");
-        assert_eq!(app_menu_quit_label("ru-RU", "DBX"), "Выйти из DBX");
-        assert_eq!(app_menu_quit_label("az-AZ", "DBX"), "DBX-dən çıx");
-        assert_eq!(app_menu_quit_label("en-US", "DBX"), "Quit DBX");
-        assert_eq!(app_menu_quit_label("", "DBX"), "Quit DBX");
+        assert_eq!(app_menu_quit_label("zh-CN", "SIMBIOSE7"), "退出 SIMBIOSE7");
+        assert_eq!(app_menu_quit_label("zh-TW", "SIMBIOSE7"), "退出 SIMBIOSE7");
+        assert_eq!(app_menu_quit_label("ja-JP", "SIMBIOSE7"), "SIMBIOSE7を終了");
+        assert_eq!(app_menu_quit_label("ko-KR", "SIMBIOSE7"), "SIMBIOSE7 종료");
+        assert_eq!(app_menu_quit_label("tr-TR", "SIMBIOSE7"), "SIMBIOSE7 Uygulamasından Çık");
+        assert_eq!(app_menu_quit_label("ru-RU", "SIMBIOSE7"), "Выйти из SIMBIOSE7");
+        assert_eq!(app_menu_quit_label("az-AZ", "SIMBIOSE7"), "SIMBIOSE7-dən çıx");
+        assert_eq!(app_menu_quit_label("en-US", "SIMBIOSE7"), "Quit SIMBIOSE7");
+        assert_eq!(app_menu_quit_label("", "SIMBIOSE7"), "Quit SIMBIOSE7");
         assert_eq!(app_menu_copy_support_info_label("zh-CN"), "复制支持信息");
         assert_eq!(app_menu_copy_support_info_label("zh-TW"), "複製支援資訊");
         assert_eq!(app_menu_copy_support_info_label("ko-KR"), "지원 정보 복사");
@@ -1115,7 +1115,7 @@ mod tests {
 
     #[test]
     fn startup_data_dir_diagnostics_never_include_paths() {
-        let private_path = PathBuf::from(r"C:\Users\private-user\DBXData");
+        let private_path = PathBuf::from(r"C:\Users\private-user\SIMBIOSE7Data");
         assert_eq!(startup_data_dir_mode(&DataDirMode::Default), "default");
         assert_eq!(startup_data_dir_mode(&DataDirMode::EnvOverride), "env_override");
         let label = startup_data_dir_mode(&DataDirMode::Portable { exe_dir: private_path });
@@ -1353,7 +1353,7 @@ mod tests {
 
     #[test]
     fn enables_appimage_dmabuf_workaround_only_for_real_appimage_values() {
-        assert!(linux_appimage_requires_dmabuf_workaround(Some(OsStr::new("/opt/DBX.AppImage"))));
+        assert!(linux_appimage_requires_dmabuf_workaround(Some(OsStr::new("/opt/SIMBIOSE7.AppImage"))));
         assert!(!linux_appimage_requires_dmabuf_workaround(Some(OsStr::new(""))));
         assert!(!linux_appimage_requires_dmabuf_workaround(None));
     }
@@ -1457,7 +1457,7 @@ mod tests {
 fn route_external_commands(
     main_handler: impl Fn(tauri::ipc::Invoke<tauri::Wry>) -> bool + Send + Sync + 'static,
 ) -> impl Fn(tauri::ipc::Invoke<tauri::Wry>) -> bool + Send + Sync + 'static {
-    dbx_tauri_consul::route(dbx_tauri_schema::route(main_handler))
+    simbiose7_tauri_consul::route(simbiose7_tauri_schema::route(main_handler))
 }
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
@@ -1466,7 +1466,7 @@ pub fn run() {
     // exhaust tokio's default 2 MiB worker stack, which aborts the process with
     // STATUS_STACK_OVERFLOW. Share the roomier stack the backup worker and Web
     // server runtimes use as well.
-    let runtime = dbx_core::scheduled_backup::worker_runtime().expect("Failed to build tokio runtime");
+    let runtime = simbiose7_core::scheduled_backup::worker_runtime().expect("Failed to build tokio runtime");
     let runtime_handle = runtime.handle().clone();
     let _runtime = Box::leak(Box::new(runtime));
     tauri::async_runtime::set(runtime_handle);
@@ -1679,7 +1679,7 @@ pub fn run() {
             } else {
                 AppState::new_with_plugin_dir_and_app_version(storage, plugin_dir, env!("CARGO_PKG_VERSION"))
             };
-            dbx_core::db::sqlite_worker::enable_sqlite_ssh_runtime(env!("CARGO_PKG_VERSION"));
+            simbiose7_core::db::sqlite_worker::enable_sqlite_ssh_runtime(env!("CARGO_PKG_VERSION"));
             state.set_duckdb_worker_process_isolation_enabled(desktop_settings.duckdb_worker_process_isolation);
             state.set_duckdb_worker_max_processes(desktop_settings.duckdb_worker_max_processes);
             let oidc_app_handle = app.handle().clone();
