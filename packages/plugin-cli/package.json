@@ -1,7 +1,7 @@
 {
-  "name": "@dbx-app/plugin-cli",
+  "name": "@simbiose7/plugin-cli",
   "version": "0.1.9",
-  "description": "Create and package DBX plugins without compiling the DBX plugin CLI",
+  "description": "Create and package Simbiose7 plugins without compiling the DBX plugin CLI",
   "keywords": [
     "cli",
     "database",
@@ -9,11 +9,11 @@
     "plugin",
     "plugin-development"
   ],
-  "homepage": "https://github.com/t8y2/dbx/tree/main/plugins",
+  "homepage": "https://github.com/Mauricio-HNS/Simbiose7/tree/main/plugins",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/t8y2/dbx",
+    "url": "https://github.com/Mauricio-HNS/Simbiose7",
     "directory": "packages/plugin-cli"
   },
   "bin": {
@@ -34,12 +34,12 @@
     "prepublishOnly": "npm run build && npm test"
   },
   "optionalDependencies": {
-    "@dbx-app/plugin-cli-darwin-arm64": "0.1.9",
-    "@dbx-app/plugin-cli-darwin-x64": "0.1.9",
-    "@dbx-app/plugin-cli-linux-arm64-gnu": "0.1.9",
-    "@dbx-app/plugin-cli-linux-x64-gnu": "0.1.9",
-    "@dbx-app/plugin-cli-win32-arm64": "0.1.9",
-    "@dbx-app/plugin-cli-win32-x64": "0.1.9"
+    "@simbiose7/plugin-cli-darwin-arm64": "0.1.9",
+    "@simbiose7/plugin-cli-darwin-x64": "0.1.9",
+    "@simbiose7/plugin-cli-linux-arm64-gnu": "0.1.9",
+    "@simbiose7/plugin-cli-linux-x64-gnu": "0.1.9",
+    "@simbiose7/plugin-cli-win32-arm64": "0.1.9",
+    "@simbiose7/plugin-cli-win32-x64": "0.1.9"
   },
   "engines": {
     "node": ">=18.18.0"
