@@ -2,17 +2,17 @@ mod agent_skill;
 
 use std::{env, path::PathBuf, process::ExitCode, sync::Arc};
 
-use dbx_core::{
+use simbiose7_core::{
     models::connection::{ConnectionConfig, DatabaseType},
     production_safety::{is_production_database, targets_production_database},
     sql_risk::{classify_sql_risk_for_database, SqlRisk},
     storage::Storage,
     types::{ColumnInfo, QueryMessage, QueryResult, TableInfo},
 };
-use dbx_mcp::{
+use simbiose7_mcp::{
     backend::DocsSnapshotOptions,
     mongo::{self, MongoSafetyError},
-    DbxBackend, LocalBackend, WebBackend,
+    Simbiose7Backend, LocalBackend, WebBackend,
 };
 use serde::Serialize;
 use serde_json::{json, Map, Value};
@@ -211,13 +211,13 @@ async fn run(argv: Vec<String>) -> Result<String, (CliError, bool)> {
             .map_err(|error| (error, json_output));
     }
 
-    let backend: Arc<dyn DbxBackend> = if let Ok(base_url) = env::var("DBX_WEB_URL") {
+    let backend: Arc<dyn Simbiose7Backend> = if let Ok(base_url) = env::var("SIMBIOSE7_WEB_URL") {
         Arc::new(
-            WebBackend::new(base_url, env::var("DBX_WEB_PASSWORD").unwrap_or_default())
+            WebBackend::new(base_url, env::var("SIMBIOSE7_WEB_PASSWORD").unwrap_or_default())
                 .map_err(|message| (CliError::new("CONNECTION_STORE_ERROR", message), json_output))?,
         )
     } else {
-        let db_path = dbx_mcp::paths::storage_db_path()
+        let db_path = simbiose7_mcp::paths::storage_db_path()
             .map_err(|message| (CliError::new("CONNECTION_STORE_ERROR", message), json_output))?;
         Arc::new(
             LocalBackend::open(&db_path)
@@ -230,7 +230,7 @@ async fn run(argv: Vec<String>) -> Result<String, (CliError, bool)> {
     result.map_err(|error| (error, json_output))
 }
 
-async fn run_with_backend(backend: &dyn DbxBackend, flags: Flags) -> Result<String, CliError> {
+async fn run_with_backend(backend: &dyn Simbiose7Backend, flags: Flags) -> Result<String, CliError> {
     let args = &flags.args;
     if args.first().is_some_and(|arg| arg == "connections") && args.get(1).is_some_and(|arg| arg == "list") {
         ensure_arg_count(args, 2, "dbx connections list")?;
@@ -285,7 +285,7 @@ async fn run_with_backend(backend: &dyn DbxBackend, flags: Flags) -> Result<Stri
                 ]),
             )
             .await
-            .map_err(|message| CliError::new("DBX_NOT_RUNNING", message))?;
+            .map_err(|message| CliError::new("SIMBIOSE7_NOT_RUNNING", message))?;
         if flags.format == OutputFormat::Json {
             return json_string(&optional_object([
                 ("opened", Some(json!(true))),
@@ -295,14 +295,14 @@ async fn run_with_backend(backend: &dyn DbxBackend, flags: Flags) -> Result<Stri
                 ("database", flags.database.clone().map(|value| json!(value))),
             ]));
         }
-        return Ok(format!("Opened {table} in DBX\n"));
+        return Ok(format!("Opened {table} in SIMBIOSE7\n"));
     }
     Err(CliError::new("USAGE", usage()))
 }
 
-async fn run_query(backend: &dyn DbxBackend, flags: &Flags) -> Result<String, CliError> {
+async fn run_query(backend: &dyn Simbiose7Backend, flags: &Flags) -> Result<String, CliError> {
     let args = &flags.args;
-    let default_connection = env::var("DBX_CONNECTION").ok().filter(|value| !value.is_empty());
+    let default_connection = env::var("SIMBIOSE7_CONNECTION").ok().filter(|value| !value.is_empty());
     let uses_default = default_connection.is_some() && args.len() == if flags.file.is_some() { 1 } else { 2 };
     ensure_arg_count(
         args,
@@ -317,7 +317,7 @@ async fn run_query(backend: &dyn DbxBackend, flags: &Flags) -> Result<String, Cl
         } else {
             3
         },
-        "dbx query",
+        "Simbiose7 query",
     )?;
     let connection_name = if uses_default {
         default_connection.as_deref().unwrap()
@@ -333,8 +333,8 @@ async fn run_query(backend: &dyn DbxBackend, flags: &Flags) -> Result<String, Cl
         required(args.get(if uses_default { 1 } else { 2 }), "SQL string or --file is required.")?.to_string()
     };
     let connection = find_connection(backend, connection_name).await?;
-    let env_allow_writes = env_flag("DBX_MCP_ALLOW_WRITES");
-    let env_allow_dangerous = env_flag("DBX_MCP_ALLOW_DANGEROUS_SQL");
+    let env_allow_writes = env_flag("SIMBIOSE7_MCP_ALLOW_WRITES");
+    let env_allow_dangerous = env_flag("SIMBIOSE7_MCP_ALLOW_DANGEROUS_SQL");
     if flags.allow_dangerous && !flags.allow_writes && !env_allow_writes {
         return Err(CliError::new("INVALID_OPTION", "--allow-dangerous-sql requires --allow-writes."));
     }
@@ -344,7 +344,7 @@ async fn run_query(backend: &dyn DbxBackend, flags: &Flags) -> Result<String, Cl
     if connection.db_type == DatabaseType::Redis {
         return Err(CliError::new(
             "REDIS_COMMAND_REQUIRED",
-            "Redis connections do not accept SQL through dbx query. Use an MCP Redis command tool or DBX directly.",
+            "Redis connections do not accept SQL through Simbiose7 query. Use an MCP Redis command tool or SIMBIOSE7 directly.",
         ));
     }
     if connection.db_type == DatabaseType::MongoDb {
@@ -404,9 +404,9 @@ fn truncate_query_result(result: &mut QueryResult, max_rows: Option<usize>) {
     }
 }
 
-async fn run_context(backend: &dyn DbxBackend, flags: &Flags) -> Result<String, CliError> {
+async fn run_context(backend: &dyn Simbiose7Backend, flags: &Flags) -> Result<String, CliError> {
     let args = &flags.args;
-    let default_connection = env::var("DBX_CONNECTION").ok().filter(|value| !value.is_empty());
+    let default_connection = env::var("SIMBIOSE7_CONNECTION").ok().filter(|value| !value.is_empty());
     let uses_default = default_connection.is_some() && args.len() == 1;
     ensure_arg_count(args, if uses_default { 1 } else { 2 }, "dbx context")?;
     if flags.format == OutputFormat::Csv {
@@ -480,7 +480,7 @@ async fn run_context(backend: &dyn DbxBackend, flags: &Flags) -> Result<String, 
     Ok(output)
 }
 
-async fn run_dbml(backend: &dyn DbxBackend, flags: &Flags) -> Result<String, CliError> {
+async fn run_dbml(backend: &dyn Simbiose7Backend, flags: &Flags) -> Result<String, CliError> {
     let args = &flags.args;
     let connection_name = required(args.get(1), "Connection name is required.")?;
     let connection = find_connection(backend, connection_name).await?;
@@ -496,14 +496,14 @@ async fn run_dbml(backend: &dyn DbxBackend, flags: &Flags) -> Result<String, Cli
 
     if let Some(path) = flags.notes.as_ref() {
         require_notes_file(path)?;
-        if let Some(annotations) = dbx_core::docs::annotations::load_annotations(path)
+        if let Some(annotations) = simbiose7_core::docs::annotations::load_annotations(path)
             .map_err(|error| CliError::new("NOTES_INVALID", error))?
         {
-            dbx_core::docs::annotations::apply_annotations(&mut snapshot, &annotations, connection.db_type);
+            simbiose7_core::docs::annotations::apply_annotations(&mut snapshot, &annotations, connection.db_type);
         }
     }
 
-    let output = dbx_core::docs::to_dbml(&snapshot);
+    let output = simbiose7_core::docs::to_dbml(&snapshot);
 
     for warning in &output.warnings {
         eprintln!("warning: {warning}");
@@ -520,7 +520,7 @@ async fn run_dbml(backend: &dyn DbxBackend, flags: &Flags) -> Result<String, Cli
     }
 }
 
-async fn run_docs(backend: &dyn DbxBackend, flags: &Flags) -> Result<String, CliError> {
+async fn run_docs(backend: &dyn Simbiose7Backend, flags: &Flags) -> Result<String, CliError> {
     let args = &flags.args;
     let connection_name = required(args.get(1), "Connection name is required.")?;
     let connection = find_connection(backend, connection_name).await?;
@@ -540,7 +540,7 @@ async fn run_docs(backend: &dyn DbxBackend, flags: &Flags) -> Result<String, Cli
     //
     // AnnotationFile does not derive Default and `format_version` must be 1,
     // so the empty value is constructed explicitly rather than defaulted.
-    let mut annotations = dbx_core::docs::annotations::AnnotationFile {
+    let mut annotations = simbiose7_core::docs::annotations::AnnotationFile {
         format_version: 1,
         project: None,
         groups: Vec::new(),
@@ -548,10 +548,10 @@ async fn run_docs(backend: &dyn DbxBackend, flags: &Flags) -> Result<String, Cli
     };
     if let Some(path) = flags.notes.as_ref() {
         require_notes_file(path)?;
-        if let Some(loaded) = dbx_core::docs::annotations::load_annotations(path)
+        if let Some(loaded) = simbiose7_core::docs::annotations::load_annotations(path)
             .map_err(|error| CliError::new("NOTES_INVALID", error))?
         {
-            dbx_core::docs::annotations::apply_annotations(&mut snapshot, &loaded, connection.db_type);
+            simbiose7_core::docs::annotations::apply_annotations(&mut snapshot, &loaded, connection.db_type);
             annotations = loaded;
         }
     }
@@ -561,7 +561,7 @@ async fn run_docs(backend: &dyn DbxBackend, flags: &Flags) -> Result<String, Cli
     }
 
     let lang = flags.lang.as_deref().unwrap_or("en");
-    let html = dbx_core::docs::to_standalone_html(&snapshot, &annotations, lang)
+    let html = simbiose7_core::docs::to_standalone_html(&snapshot, &annotations, lang)
         .map_err(|error| CliError::new("EXPORT_FAILED", error))?;
 
     match flags.out.as_ref() {
@@ -575,7 +575,7 @@ async fn run_docs(backend: &dyn DbxBackend, flags: &Flags) -> Result<String, Cli
     }
 }
 
-async fn find_connection(backend: &dyn DbxBackend, name: &str) -> Result<ConnectionConfig, CliError> {
+async fn find_connection(backend: &dyn Simbiose7Backend, name: &str) -> Result<ConnectionConfig, CliError> {
     backend
         .load_connections()
         .await
@@ -887,7 +887,7 @@ fn format_capabilities(format: OutputFormat) -> Result<String, CliError> {
         OutputFormat::Table => {
             let rows = vec![
                 json!({ "mode": "Direct", "types": DIRECT_QUERY_TYPES.join(", ") }),
-                json!({ "mode": "Requires DBX Desktop", "types": BRIDGE_REQUIRED_TYPES.join(", ") }),
+                json!({ "mode": "Requires SIMBIOSE7 Desktop", "types": BRIDGE_REQUIRED_TYPES.join(", ") }),
             ];
             Ok(format!("{}\n", markdown_table(&["Mode", "Types"], &rows, &["mode", "types"])))
         }
@@ -895,8 +895,8 @@ fn format_capabilities(format: OutputFormat) -> Result<String, CliError> {
 }
 
 async fn diagnostics() -> Diagnostics {
-    let app_data_dir = dbx_mcp::paths::app_data_dir().unwrap_or_default();
-    let db_path = app_data_dir.join(dbx_mcp::paths::STORAGE_DB_FILE_NAME);
+    let app_data_dir = simbiose7_mcp::paths::app_data_dir().unwrap_or_default();
+    let db_path = app_data_dir.join(simbiose7_mcp::paths::STORAGE_DB_FILE_NAME);
     let bridge_port_file = app_data_dir.join("mcp-bridge-port");
     let db_path_exists = db_path.exists();
     let bridge_port_file_exists = bridge_port_file.exists();
@@ -911,7 +911,7 @@ async fn diagnostics() -> Diagnostics {
             Err(error) => Err(error),
         }
     } else {
-        Err("DBX database does not exist.".to_string())
+        Err("SIMBIOSE7 database does not exist.".to_string())
     };
     let (load_connections_ok, connections, error) = match loaded {
         Ok(connections) => (true, connections, None),
@@ -959,7 +959,7 @@ fn format_diagnostics(value: &Diagnostics, format: OutputFormat) -> Result<Strin
     }
     let rows = vec![
         json!({ "check": "App data directory", "value": value.app_data_dir }),
-        json!({ "check": "DBX database", "value": if value.db_path_exists { format!("found ({})", value.db_path) } else { format!("missing ({})", value.db_path) } }),
+        json!({ "check": "SIMBIOSE7 database", "value": if value.db_path_exists { format!("found ({})", value.db_path) } else { format!("missing ({})", value.db_path) } }),
         json!({ "check": "Connections table", "value": if value.connections_table_exists { format!("{} row(s)", value.connection_row_count) } else { "missing".to_string() } }),
         json!({ "check": "Connection loading", "value": if value.load_connections_ok { format!("ok ({} loaded)", value.loaded_connection_count) } else { format!("failed ({})", value.load_connections_error.as_deref().unwrap_or("unknown error")) } }),
         json!({ "check": "Desktop bridge", "value": if value.bridge_port_file_exists { format!("available ({})", value.bridge_url.as_deref().unwrap_or(&value.bridge_port_file)) } else { "not running".to_string() } }),
@@ -1028,7 +1028,7 @@ fn csv_cell(value: &str) -> String {
 }
 
 fn usage() -> &'static str {
-    "Usage:\n  dbx doctor [--json]\n  dbx capabilities [--json]\n  dbx agent setup [--skills-dir path] [--force] [--json]\n  dbx agent status [--skills-dir path] [--json]\n  dbx connections list [--json]\n  dbx schema list <connection> [--schema name] [--json]\n  dbx schema describe <connection> <table> [--schema name] [--json]\n  dbx query <connection> <sql> [--file path] [--limit n] [--timeout 10s] [--allow-writes] [--allow-dangerous-sql] [--json]\n  dbx context <connection> [--schema name] [--tables a,b] [--max-tables n] [--json]\n  dbx dbml <connection> [--out path] [--notes path] [--schema name] [--database name] [--tables a,b]\n  dbx docs <connection> [--out path] [--notes path] [--lang code] [--schema name] [--database name] [--tables a,b]\n  dbx open <connection> <table> [--schema name] [--database name] [--json]"
+    "Usage:\n  dbx doctor [--json]\n  dbx capabilities [--json]\n  dbx agent setup [--skills-dir path] [--force] [--json]\n  dbx agent status [--skills-dir path] [--json]\n  dbx connections list [--json]\n  dbx schema list <connection> [--schema name] [--json]\n  dbx schema describe <connection> <table> [--schema name] [--json]\n  Simbiose7 query <connection> <sql> [--file path] [--limit n] [--timeout 10s] [--allow-writes] [--allow-dangerous-sql] [--json]\n  dbx context <connection> [--schema name] [--tables a,b] [--max-tables n] [--json]\n  dbx dbml <connection> [--out path] [--notes path] [--schema name] [--database name] [--tables a,b]\n  dbx docs <connection> [--out path] [--notes path] [--lang code] [--schema name] [--database name] [--tables a,b]\n  dbx open <connection> <table> [--schema name] [--database name] [--json]"
 }
 
 #[cfg(test)]
@@ -1054,12 +1054,12 @@ mod tests {
         assert!(error.message.contains("typo.json"), "message names the path: {}", error.message);
     }
     use async_trait::async_trait;
-    use dbx_core::{
+    use simbiose7_core::{
         agent_events::ToolResult,
         agent_tools::AgentSqlPermissions,
         storage::{McpGlobalPolicy, Storage},
     };
-    use dbx_mcp::{backend::new_connection_config, mongo::MongoCommand};
+    use simbiose7_mcp::{backend::new_connection_config, mongo::MongoCommand};
 
     struct MongoBackend {
         connection: ConnectionConfig,
@@ -1086,7 +1086,7 @@ mod tests {
     }
 
     #[async_trait]
-    impl DbxBackend for MongoBackend {
+    impl Simbiose7Backend for MongoBackend {
         async fn load_mcp_global_policy(&self) -> Result<McpGlobalPolicy, String> {
             Ok(McpGlobalPolicy::default())
         }
@@ -1298,14 +1298,14 @@ mod tests {
     }
 
     #[tokio::test]
-    #[ignore = "requires DBX_MCP_TEST_MONGO_HOST and DBX_MCP_TEST_MONGO_PASSWORD"]
+    #[ignore = "requires SIMBIOSE7_MCP_TEST_MONGO_HOST and SIMBIOSE7_MCP_TEST_MONGO_PASSWORD"]
     async fn executes_legacy_mongo_insert_without_desktop_process() {
-        let host = env::var("DBX_MCP_TEST_MONGO_HOST").expect("MongoDB host");
-        let port = env::var("DBX_MCP_TEST_MONGO_PORT")
+        let host = env::var("SIMBIOSE7_MCP_TEST_MONGO_HOST").expect("MongoDB host");
+        let port = env::var("SIMBIOSE7_MCP_TEST_MONGO_PORT")
             .unwrap_or_else(|_| "27017".to_string())
             .parse::<u16>()
             .expect("MongoDB port");
-        let password = env::var("DBX_MCP_TEST_MONGO_PASSWORD").expect("MongoDB password");
+        let password = env::var("SIMBIOSE7_MCP_TEST_MONGO_PASSWORD").expect("MongoDB password");
         let directory = tempfile::tempdir().expect("temporary data directory");
         let db_path = directory.path().join("dbx.db");
         let storage = Storage::open(&db_path).await.expect("open storage");
@@ -1317,7 +1317,7 @@ mod tests {
             port,
             "root".to_string(),
             password,
-            Some("dbx_mcp_test".to_string()),
+            Some("simbiose7_mcp_test".to_string()),
             false,
             None,
         )
