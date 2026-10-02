@@ -1,5 +1,5 @@
 [package]
-name = "dbx-driver-support"
+name = "simbiose7-driver-support"
 version = "0.1.0"
 edition = "2021"
 license = "Apache-2.0"
@@ -7,11 +7,11 @@ publish = false
 
 [features]
 default = []
-test-support = ["dbx-platform/test-support"]
+test-support = ["simbiose7-platform/test-support"]
 
 [dependencies]
-dbx-platform = { path = "../dbx-platform" }
-dbx-types = { path = "../dbx-types", default-features = false }
+simbiose7-platform = { path = "../simbiose7-platform" }
+simbiose7-types = { path = "../simbiose7-types", default-features = false }
 bytes = "1"
 glob = "0.3"
 portpicker = "0.1.1"
