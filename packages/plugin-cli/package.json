@@ -1,11 +1,11 @@
 {
   "name": "@simbiose7/plugin-cli",
   "version": "0.1.9",
-  "description": "Create and package Simbiose7 plugins without compiling the DBX plugin CLI",
+  "description": "Create and package Simbiose7 plugins without compiling the Simbiose7 plugin CLI",
   "keywords": [
     "cli",
     "database",
-    "dbx",
+    "simbiose7",
     "plugin",
     "plugin-development"
   ],
