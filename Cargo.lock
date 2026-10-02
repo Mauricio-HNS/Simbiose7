@@ -2111,10 +2111,10 @@ dependencies = [
  "calamine",
  "chrono",
  "csv",
- "dbx-core",
- "dbx-mcp",
- "dbx-tauri-consul",
- "dbx-tauri-schema",
+ "simbiose7-core",
+ "simbiose7-mcp",
+ "simbiose7-tauri-consul",
+ "simbiose7-tauri-schema",
  "deadpool-postgres",
  "font-kit",
  "futures",
@@ -2167,12 +2167,12 @@ dependencies = [
 ]
 
 [[package]]
-name = "dbx-ai-provider"
+name = "simbiose7-ai-provider"
 version = "0.1.0"
 dependencies = [
  "base64 0.22.1",
  "bytes",
- "dbx-platform",
+ "simbiose7-platform",
  "futures",
  "httpdate",
  "log",
@@ -2185,12 +2185,12 @@ dependencies = [
 ]
 
 [[package]]
-name = "dbx-cli"
+name = "simbiose7-cli"
 version = "0.4.102"
 dependencies = [
  "async-trait",
- "dbx-core",
- "dbx-mcp",
+ "simbiose7-core",
+ "simbiose7-mcp",
  "dirs",
  "rustls 0.23.43",
  "serde",
@@ -2201,7 +2201,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "dbx-core"
+name = "simbiose7-core"
 version = "0.1.0"
 dependencies = [
  "aes 0.8.4",
@@ -2217,14 +2217,14 @@ dependencies = [
  "chrono-tz",
  "crc",
  "csv",
- "dbx-ai-provider",
- "dbx-core",
- "dbx-drivers",
- "dbx-formats",
- "dbx-platform",
- "dbx-plugin-runtime",
- "dbx-sql",
- "dbx-types",
+ "simbiose7-ai-provider",
+ "simbiose7-core",
+ "simbiose7-drivers",
+ "simbiose7-formats",
+ "simbiose7-platform",
+ "simbiose7-plugin-runtime",
+ "simbiose7-sql",
+ "simbiose7-types",
  "deadpool-postgres",
  "encoding_rs",
  "flate2",
@@ -2273,14 +2273,14 @@ dependencies = [
 ]
 
 [[package]]
-name = "dbx-driver-agent"
+name = "simbiose7-driver-agent"
 version = "0.1.0"
 dependencies = [
  "chrono",
  "crc",
- "dbx-platform",
- "dbx-sql-core",
- "dbx-types",
+ "simbiose7-platform",
+ "simbiose7-sql-core",
+ "simbiose7-types",
  "flate2",
  "futures",
  "log",
@@ -2300,11 +2300,11 @@ dependencies = [
 ]
 
 [[package]]
-name = "dbx-driver-elasticsearch"
+name = "simbiose7-driver-elasticsearch"
 version = "0.1.0"
 dependencies = [
- "dbx-driver-support",
- "dbx-types",
+ "simbiose7-driver-support",
+ "simbiose7-types",
  "percent-encoding",
  "regex",
  "reqwest 0.12.28",
@@ -2315,13 +2315,13 @@ dependencies = [
 ]
 
 [[package]]
-name = "dbx-driver-mongodb"
+name = "simbiose7-driver-mongodb"
 version = "0.1.0"
 dependencies = [
  "base64 0.22.1",
  "chrono",
- "dbx-driver-support",
- "dbx-types",
+ "simbiose7-driver-support",
+ "simbiose7-types",
  "futures",
  "json5",
  "log",
@@ -2336,14 +2336,14 @@ dependencies = [
 ]
 
 [[package]]
-name = "dbx-driver-mysql"
+name = "simbiose7-driver-mysql"
 version = "0.1.0"
 dependencies = [
  "chrono",
- "dbx-driver-support",
- "dbx-sql-core",
- "dbx-sql-dialect",
- "dbx-types",
+ "simbiose7-driver-support",
+ "simbiose7-sql-core",
+ "simbiose7-sql-dialect",
+ "simbiose7-types",
  "futures",
  "log",
  "mysql_async",
@@ -2357,14 +2357,14 @@ dependencies = [
 ]
 
 [[package]]
-name = "dbx-driver-postgres"
+name = "simbiose7-driver-postgres"
 version = "0.1.0"
 dependencies = [
  "bytes",
  "chrono",
- "dbx-driver-support",
- "dbx-sql-core",
- "dbx-types",
+ "simbiose7-driver-support",
+ "simbiose7-sql-core",
+ "simbiose7-types",
  "deadpool-postgres",
  "futures",
  "log",
@@ -2387,12 +2387,12 @@ dependencies = [
 ]
 
 [[package]]
-name = "dbx-driver-redis"
+name = "simbiose7-driver-redis"
 version = "0.1.0"
 dependencies = [
  "base64 0.22.1",
- "dbx-driver-support",
- "dbx-types",
+ "simbiose7-driver-support",
+ "simbiose7-types",
  "redis",
  "serde",
  "serde_json",
@@ -2400,14 +2400,14 @@ dependencies = [
 ]
 
 [[package]]
-name = "dbx-driver-sqlserver"
+name = "simbiose7-driver-sqlserver"
 version = "0.1.0"
 dependencies = [
  "chrono",
- "dbx-driver-support",
- "dbx-sql-core",
- "dbx-sql-data",
- "dbx-types",
+ "simbiose7-driver-support",
+ "simbiose7-sql-core",
+ "simbiose7-sql-data",
+ "simbiose7-types",
  "futures",
  "log",
  "serde",
@@ -2422,12 +2422,12 @@ dependencies = [
 ]
 
 [[package]]
-name = "dbx-driver-support"
+name = "simbiose7-driver-support"
 version = "0.1.0"
 dependencies = [
  "bytes",
- "dbx-platform",
- "dbx-types",
+ "simbiose7-platform",
+ "simbiose7-types",
  "glob",
  "portpicker",
  "reqwest 0.12.28",
@@ -2442,7 +2442,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "dbx-drivers"
+name = "simbiose7-drivers"
 version = "0.1.0"
 dependencies = [
  "aws-sdk-dynamodb",
@@ -2451,20 +2451,20 @@ dependencies = [
  "chrono",
  "crc",
  "csv",
- "dbx-driver-agent",
- "dbx-driver-elasticsearch",
- "dbx-driver-mongodb",
- "dbx-driver-mysql",
- "dbx-driver-postgres",
- "dbx-driver-redis",
- "dbx-driver-sqlserver",
- "dbx-driver-support",
- "dbx-platform",
- "dbx-sql-core",
- "dbx-sql-data",
- "dbx-sql-dialect",
- "dbx-sqlite-worker",
- "dbx-types",
+ "simbiose7-driver-agent",
+ "simbiose7-driver-elasticsearch",
+ "simbiose7-driver-mongodb",
+ "simbiose7-driver-mysql",
+ "simbiose7-driver-postgres",
+ "simbiose7-driver-redis",
+ "simbiose7-driver-sqlserver",
+ "simbiose7-driver-support",
+ "simbiose7-platform",
+ "simbiose7-sql-core",
+ "simbiose7-sql-data",
+ "simbiose7-sql-dialect",
+ "simbiose7-sqlite-worker",
+ "simbiose7-types",
  "deadpool-postgres",
  "flate2",
  "futures",
@@ -2508,7 +2508,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "dbx-formats"
+name = "simbiose7-formats"
 version = "0.1.0"
 dependencies = [
  "calamine",
@@ -2521,13 +2521,13 @@ dependencies = [
 ]
 
 [[package]]
-name = "dbx-mcp"
+name = "simbiose7-mcp"
 version = "0.4.102"
 dependencies = [
  "async-trait",
  "axum",
  "chrono",
- "dbx-core",
+ "simbiose7-core",
  "dirs",
  "env_logger",
  "futures",
@@ -2551,7 +2551,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "dbx-platform"
+name = "simbiose7-platform"
 version = "0.1.0"
 dependencies = [
  "futures",
@@ -2563,14 +2563,14 @@ dependencies = [
 ]
 
 [[package]]
-name = "dbx-plugin-runtime"
+name = "simbiose7-plugin-runtime"
 version = "0.1.0"
 dependencies = [
  "base64 0.22.1",
  "bytes",
  "chrono",
- "dbx-platform",
- "dbx-types",
+ "simbiose7-platform",
+ "simbiose7-types",
  "ed25519-dalek 2.2.0",
  "fs2",
  "futures",
@@ -2587,22 +2587,22 @@ dependencies = [
 ]
 
 [[package]]
-name = "dbx-sql"
+name = "simbiose7-sql"
 version = "0.1.0"
 dependencies = [
- "dbx-sql-core",
- "dbx-sql-data",
- "dbx-sql-dialect",
- "dbx-sql-schema",
- "dbx-types",
+ "simbiose7-sql-core",
+ "simbiose7-sql-data",
+ "simbiose7-sql-dialect",
+ "simbiose7-sql-schema",
+ "simbiose7-types",
 ]
 
 [[package]]
-name = "dbx-sql-core"
+name = "simbiose7-sql-core"
 version = "0.1.0"
 dependencies = [
  "chrono",
- "dbx-types",
+ "simbiose7-types",
  "encoding_rs",
  "log",
  "regex",
@@ -2614,13 +2614,13 @@ dependencies = [
 ]
 
 [[package]]
-name = "dbx-sql-data"
+name = "simbiose7-sql-data"
 version = "0.1.0"
 dependencies = [
  "chrono",
- "dbx-sql-core",
- "dbx-sql-dialect",
- "dbx-types",
+ "simbiose7-sql-core",
+ "simbiose7-sql-dialect",
+ "simbiose7-types",
  "serde",
  "serde_json",
  "sqlparser",
@@ -2629,11 +2629,11 @@ dependencies = [
 ]
 
 [[package]]
-name = "dbx-sql-dialect"
+name = "simbiose7-sql-dialect"
 version = "0.1.0"
 dependencies = [
  "chrono",
- "dbx-types",
+ "simbiose7-types",
  "insta",
  "log",
  "notify",
@@ -2645,12 +2645,12 @@ dependencies = [
 ]
 
 [[package]]
-name = "dbx-sql-schema"
+name = "simbiose7-sql-schema"
 version = "0.1.0"
 dependencies = [
- "dbx-sql-core",
- "dbx-sql-dialect",
- "dbx-types",
+ "simbiose7-sql-core",
+ "simbiose7-sql-dialect",
+ "simbiose7-types",
  "log",
  "rayon",
  "regex",
@@ -2662,7 +2662,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "dbx-sqlite-worker"
+name = "simbiose7-sqlite-worker"
 version = "0.1.1"
 dependencies = [
  "rusqlite",
@@ -2672,25 +2672,25 @@ dependencies = [
 ]
 
 [[package]]
-name = "dbx-tauri-consul"
+name = "simbiose7-tauri-consul"
 version = "0.1.0"
 dependencies = [
- "dbx-core",
+ "simbiose7-core",
  "serde",
  "serde_json",
  "tauri",
 ]
 
 [[package]]
-name = "dbx-tauri-schema"
+name = "simbiose7-tauri-schema"
 version = "0.1.0"
 dependencies = [
- "dbx-core",
+ "simbiose7-core",
  "tauri",
 ]
 
 [[package]]
-name = "dbx-types"
+name = "simbiose7-types"
 version = "0.1.0"
 dependencies = [
  "percent-encoding",
@@ -2702,7 +2702,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "dbx-web"
+name = "simbiose7-web"
 version = "0.6.29"
 dependencies = [
  "aes-gcm 0.10.3",
@@ -2711,8 +2711,8 @@ dependencies = [
  "axum",
  "base64 0.22.1",
  "chrono",
- "dbx-core",
- "dbx-mcp",
+ "simbiose7-core",
+ "simbiose7-mcp",
  "futures",
  "log",
  "mime_guess",
