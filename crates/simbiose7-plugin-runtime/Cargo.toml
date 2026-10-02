@@ -1,5 +1,5 @@
 [package]
-name = "dbx-plugin-runtime"
+name = "simbiose7-plugin-runtime"
 version = "0.1.0"
 edition = "2021"
 license = "Apache-2.0"
@@ -10,8 +10,8 @@ default = []
 test-support = []
 
 [dependencies]
-dbx-platform = { path = "../dbx-platform", features = ["host-prompts"] }
-dbx-types = { path = "../dbx-types", default-features = false }
+simbiose7-platform = { path = "../simbiose7-platform", features = ["host-prompts"] }
+simbiose7-types = { path = "../simbiose7-types", default-features = false }
 serde = { version = "1.0", features = ["derive"] }
 serde_json = { version = "1.0", features = ["arbitrary_precision", "preserve_order"] }
 semver = "1"
@@ -30,5 +30,5 @@ zip = { version = "4", default-features = false, features = ["deflate"] }
 tempfile = "3"
 
 [dev-dependencies]
-dbx-platform = { path = "../dbx-platform", features = ["test-support"] }
+simbiose7-platform = { path = "../simbiose7-platform", features = ["test-support"] }
 tokio = { version = "1", features = ["test-util", "rt-multi-thread"] }
