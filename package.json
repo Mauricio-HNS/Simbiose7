@@ -40,7 +40,7 @@
     "bench:mongodb-count": "node scripts/bench/mongodb-count.mjs",
     "bench:sidebar-large-schema": "vitest bench apps/desktop/src/lib/sidebar/sidebarLargeSchema.bench.ts",
     "bench:startup": "node --import tsx scripts/bench/startup-bundle.mjs",
-    "bench:table-import": "cargo run -p dbx-core --no-default-features --example table_import_bench --release --",
+    "bench:table-import": "cargo run -p simbiose7-core --no-default-features --example table_import_bench --release --",
     "lint": "oxlint --vue-plugin apps/desktop/src",
     "fmt": "oxfmt \"apps/desktop/src/**/*.{ts,vue}\"",
     "pretest": "pnpm generate:connection-types",
