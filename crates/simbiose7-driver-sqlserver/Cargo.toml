@@ -1,15 +1,15 @@
 [package]
-name = "dbx-driver-sqlserver"
+name = "simbiose7-driver-sqlserver"
 version = "0.1.0"
 edition = "2021"
 license = "Apache-2.0"
 publish = false
 
 [dependencies]
-dbx-driver-support = { path = "../dbx-driver-support" }
-dbx-sql-core = { path = "../dbx-sql-core" }
-dbx-sql-data = { path = "../dbx-sql-data" }
-dbx-types = { path = "../dbx-types", default-features = false }
+simbiose7-driver-support = { path = "../simbiose7-driver-support" }
+simbiose7-sql-core = { path = "../simbiose7-sql-core" }
+simbiose7-sql-data = { path = "../simbiose7-sql-data" }
+simbiose7-types = { path = "../simbiose7-types", default-features = false }
 chrono = { version = "0.4", features = ["serde"] }
 futures = "0.3"
 log = "0.4"
