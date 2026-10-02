@@ -1,28 +1,28 @@
 [package]
-name = "dbx-web"
+name = "simbiose7-web"
 version = "0.6.29"
 edition = "2021"
 license = "Apache-2.0"
 
 [[bin]]
-name = "dbx-web"
+name = "simbiose7-web"
 path = "src/main.rs"
 
 [features]
 default = ["duckdb-sidecar", "dynamodb", "mq-admin", "sqlite-sqlcipher", "system-fonts"]
-duckdb-sidecar = ["dbx-core/duckdb-sidecar", "dbx-mcp/duckdb-sidecar"]
-dynamodb = ["dbx-core/dynamodb"]
-mq-admin = ["dbx-core/mq-admin", "dbx-mcp/mq-admin"]
-sqlite-sqlcipher = ["dbx-core/sqlite-sqlcipher"]
-system-fonts = ["dbx-core/system-fonts"]
+duckdb-sidecar = ["simbiose7-core/duckdb-sidecar", "simbiose7-mcp/duckdb-sidecar"]
+dynamodb = ["simbiose7-core/dynamodb"]
+mq-admin = ["simbiose7-core/mq-admin", "simbiose7-mcp/mq-admin"]
+sqlite-sqlcipher = ["simbiose7-core/sqlite-sqlcipher"]
+system-fonts = ["simbiose7-core/system-fonts"]
 # Embed the frontend build output (../../dist) into the binary. When enabled
 # and DBX_STATIC_DIR is not set, the embedded files are served by default.
 # Requires the frontend to have been built before invoking cargo.
 embed-static = ["dep:rust-embed", "dep:mime_guess"]
 
 [dependencies]
-dbx-core = { path = "../dbx-core", default-features = false, features = ["openapi"] }
-dbx-mcp = { path = "../dbx-mcp", default-features = false }
+simbiose7-core = { path = "../simbiose7-core", default-features = false, features = ["openapi"] }
+simbiose7-mcp = { path = "../simbiose7-mcp", default-features = false }
 redis = { version = "0.32", features = ["tokio-comp"] }
 axum = { version = "0.8", features = ["multipart", "ws"] }
 tower-http = { version = "0.6", features = ["cors", "fs", "compression-gzip", "trace"] }
@@ -51,5 +51,5 @@ mime_guess = { version = "2", optional = true }
 
 
 [dev-dependencies]
-dbx-core = { path = "../dbx-core", default-features = false, features = ["test-support"] }
+simbiose7-core = { path = "../simbiose7-core", default-features = false, features = ["test-support"] }
 reqwest = { version = "0.12", default-features = false, features = ["multipart"] }
