@@ -9,29 +9,29 @@ import { fileURLToPath } from "node:url";
 const require = createRequire(import.meta.url);
 const packageRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const platformPackages = {
-  "darwin-arm64": ["@dbx-app/plugin-cli-darwin-arm64", "dbx-plugin"],
-  "darwin-x64": ["@dbx-app/plugin-cli-darwin-x64", "dbx-plugin"],
-  "linux-arm64": ["@dbx-app/plugin-cli-linux-arm64-gnu", "dbx-plugin"],
-  "linux-x64": ["@dbx-app/plugin-cli-linux-x64-gnu", "dbx-plugin"],
-  "win32-arm64": ["@dbx-app/plugin-cli-win32-arm64", "dbx-plugin.exe"],
-  "win32-x64": ["@dbx-app/plugin-cli-win32-x64", "dbx-plugin.exe"],
+  "darwin-arm64": ["@simbiose7/plugin-cli-darwin-arm64", "simbiose7-plugin"],
+  "darwin-x64": ["@simbiose7/plugin-cli-darwin-x64", "simbiose7-plugin"],
+  "linux-arm64": ["@simbiose7/plugin-cli-linux-arm64-gnu", "simbiose7-plugin"],
+  "linux-x64": ["@simbiose7/plugin-cli-linux-x64-gnu", "simbiose7-plugin"],
+  "win32-arm64": ["@simbiose7/plugin-cli-win32-arm64", "simbiose7-plugin.exe"],
+  "win32-x64": ["@simbiose7/plugin-cli-win32-x64", "simbiose7-plugin.exe"],
 };
 
 function platformTarget() {
   const platform = `${process.platform}-${process.arch}`;
   const target = platformPackages[platform];
   if (!target) {
-    throw new Error(`DBX Plugin CLI does not provide a binary for ${platform}.`);
+    throw new Error(`Simbiose7 Plugin CLI does not provide a binary for ${platform}.`);
   }
   return target;
 }
 
 function resolveBinary() {
-  if (process.env.DBX_PLUGIN_CLI_BINARY) {
-    if (!existsSync(process.env.DBX_PLUGIN_CLI_BINARY)) {
-      throw new Error(`DBX_PLUGIN_CLI_BINARY does not exist: ${process.env.DBX_PLUGIN_CLI_BINARY}`);
+  if (process.env.SIMBIOSE7_PLUGIN_CLI_BINARY) {
+    if (!existsSync(process.env.SIMBIOSE7_PLUGIN_CLI_BINARY)) {
+      throw new Error(`SIMBIOSE7_PLUGIN_CLI_BINARY does not exist: ${process.env.SIMBIOSE7_PLUGIN_CLI_BINARY}`);
     }
-    return process.env.DBX_PLUGIN_CLI_BINARY;
+    return process.env.SIMBIOSE7_PLUGIN_CLI_BINARY;
   }
 
   const [packageName, binaryName] = platformTarget();
@@ -40,21 +40,21 @@ function resolveBinary() {
     manifest = require.resolve(`${packageName}/package.json`);
   } catch {
     throw new Error(
-      `The optional package ${packageName} was not installed. Reinstall @dbx-app/plugin-cli without --no-optional.`,
+      `The optional package ${packageName} was not installed. Reinstall @simbiose7/plugin-cli without --no-optional.`,
     );
   }
 
   const binary = join(dirname(manifest), "bin", binaryName);
   if (!existsSync(binary)) {
-    throw new Error(`The DBX Plugin CLI binary is missing from ${packageName}.`);
+    throw new Error(`The Simbiose7 Plugin CLI binary is missing from ${packageName}.`);
   }
   return binary;
 }
 
 function bundledSdkRoot() {
   const sdkRoot = join(packageRoot, "sdk-root");
-  const rustManifest = join(sdkRoot, "plugins", "sdk", "rust", "dbx-plugin-sdk", "Cargo.toml");
-  const goManifest = join(sdkRoot, "plugins", "sdk", "go", "dbx-plugin-sdk", "go.mod");
+  const rustManifest = join(sdkRoot, "plugins", "sdk", "rust", "simbiose7-plugin-sdk", "Cargo.toml");
+  const goManifest = join(sdkRoot, "plugins", "sdk", "go", "simbiose7-plugin-sdk", "go.mod");
   return existsSync(rustManifest) && existsSync(goManifest) ? sdkRoot : undefined;
 }
 
@@ -66,9 +66,9 @@ try {
 
   const binary = resolveBinary();
   const env = { ...process.env };
-  delete env.DBX_PLUGIN_CLI_BINARY;
+  delete env.SIMBIOSE7_PLUGIN_CLI_BINARY;
   if (process.argv[2] === "dev") {
-    if (Number(process.versions.node.split(".")[0]) < 22) throw new Error("dbx-plugin dev requires Node.js 22+.");
+    if (Number(process.versions.node.split(".")[0]) < 22) throw new Error("simbiose7-plugin dev requires Node.js 22+.");
     env.DBX_PLUGIN_NODE = env.DBX_PLUGIN_NODE || process.execPath;
     env.DBX_PLUGIN_DEV_RUNTIME = env.DBX_PLUGIN_DEV_RUNTIME || join(packageRoot, "dev-runtime", "runtime.mjs");
   }
