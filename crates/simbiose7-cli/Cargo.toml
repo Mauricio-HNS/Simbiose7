@@ -1,5 +1,5 @@
 [package]
-name = "dbx-cli"
+name = "simbiose7-cli"
 version = "0.4.102"
 edition = "2021"
 license = "Apache-2.0"
@@ -9,8 +9,8 @@ name = "dbx"
 path = "src/main.rs"
 
 [dependencies]
-dbx-core = { path = "../dbx-core", default-features = false, features = ["sqlite-bundled"] }
-dbx-mcp = { path = "../dbx-mcp" }
+simbiose7-core = { path = "../simbiose7-core", default-features = false, features = ["sqlite-bundled"] }
+simbiose7-mcp = { path = "../simbiose7-mcp" }
 dirs = "6"
 rustls = { version = "0.23", features = ["aws-lc-rs"] }
 serde = { version = "1", features = ["derive"] }
