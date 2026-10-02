@@ -1,11 +1,11 @@
 {
-  "name": "@dbx-app/plugin-cli-darwin-x64",
+  "name": "@simbiose7/plugin-cli-darwin-x64",
   "version": "0.1.9",
-  "description": "Precompiled DBX Plugin CLI binary for darwin x64",
+  "description": "Precompiled Simbiose7 Plugin CLI binary for darwin x64",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/t8y2/dbx",
+    "url": "https://github.com/Mauricio-HNS/Simbiose7",
     "directory": "packages/plugin-cli-darwin-x64"
   },
   "os": [
@@ -15,7 +15,7 @@
     "x64"
   ],
   "bin": {
-    "dbx-plugin-native": "bin/dbx-plugin"
+    "simbiose7-plugin-native": "bin/simbiose7-plugin"
   },
   "files": [
     "bin"
