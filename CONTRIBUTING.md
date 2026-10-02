@@ -1,15 +1,15 @@
-# Contributing to DBX
+# Contributing to Simbiose7
 
-Thanks for taking a look at DBX. Whether you fix a typo, improve docs, or tackle a database-specific bug, every PR helps.
+Thanks for taking a look at Simbiose7. Whether you fix a typo, improve docs, or tackle a database-specific bug, every PR helps.
 
 ## Where to Start
 
-1. Browse [open issues](https://github.com/t8y2/dbx/issues) and choose one with no assignee or active contributor in its comments. Do not rely only on labels; read the full report, comments, and screenshots.
+1. Browse [open issues](https://github.com/Mauricio-HNS/Simbiose7/issues) and choose one with no assignee or active contributor in its comments. Do not rely only on labels; read the full report, comments, and screenshots.
 2. Comment on the issue you want to work on so others do not duplicate the effort. Use `/claim` to claim it, or `/unclaim` (`/unclaimed` is also accepted) later if you cannot continue.
 3. Fork the repo, create a branch, and open a PR against `main`.
 4. After your linked PR is merged, comment `/close` if the issue remains open. The command only works for the current assignee and the author of the merged PR.
 
-If you are not sure what to pick, choose an issue with clear reproduction steps, a small scope, or a database you can verify against a real instance. Follow the [complete website tutorial](https://dbxio.com/en/docs/contributing).
+If you are not sure what to pick, choose an issue with clear reproduction steps, a small scope, or a database you can verify against a real instance. Follow the [complete website tutorial](https://destiny7.com/en/docs/contributing).
 
 `user-priority/*` reflects the reporter's urgency; `ai-priority/*` is an automated repair/implementation suggestion, not a verified diagnosis or release promise. Maintainer decisions take precedence. See the [priority rubric and automation safeguards](.github/scripts/README.md).
 
@@ -27,8 +27,8 @@ Linux desktop builds also need WebKit/GTK packages. See [README.md](README.md#ge
 ### Run Locally
 
 ```bash
-git clone https://github.com/t8y2/dbx.git
-cd dbx
+git clone https://github.com/Mauricio-HNS/Simbiose7.git
+cd Simbiose7
 make
 ```
 
@@ -46,17 +46,17 @@ make cargo-check-fast  # fast Rust checks
 
 ### macOS Development Signing
 
-Use `make dev`, `make dev-fast`, or `pnpm dev:tauri`. These entry points sign each rebuilt debug executable with a stable, local-only development identity before launching it. The first launch may still ask you to select **Always Allow** for DBX's existing Keychain item; subsequent rebuilds keep the same code identity. Direct `pnpm tauri dev` bypasses this setup.
+Use `make dev`, `make dev-fast`, or `pnpm dev:tauri`. These entry points sign each rebuilt debug executable with a stable, local-only development identity before launching it. The first launch may still ask you to select **Always Allow** for Simbiose7's existing Keychain item; subsequent rebuilds keep the same code identity. Direct `pnpm tauri dev` bypasses this setup.
 
-The first run creates a dedicated signing keychain and a self-signed certificate under `~/Library/Application Support/DBX/development-signing/`. It adds only this keychain to your user search list, without changing the default keychain or system trust settings. The directory is owner-only (`0700`); its files, including the generated password used to unlock this development-only signing keychain, are owner-only (`0600`). No release private key or DBX connection-encryption key is exported or replaced. Keep this local identity across rebuilds; do not commit or share it. An incomplete, corrupt, or expired identity fails explicitly rather than silently rotating or falling back to ad-hoc signing.
+The first run creates a dedicated signing keychain and a self-signed certificate under `~/Library/Application Support/Simbiose7/development-signing/`. It adds only this keychain to your user search list, without changing the default keychain or system trust settings. The directory is owner-only (`0700`); its files, including the generated password used to unlock this development-only signing keychain, are owner-only (`0600`). No release private key or Simbiose7 connection-encryption key is exported or replaced. Keep this local identity across rebuilds; do not commit or share it. An incomplete, corrupt, or expired identity fails explicitly rather than silently rotating or falling back to ad-hoc signing.
 
 The runner is restricted to `debug/dbx`, preserves Cargo feature and application arguments, and does not run for Linux, Windows, or release packaging. Custom `CARGO_TARGET_*_RUNNER` variables must be unset for these macOS development entry points.
 
-Core, desktop and Web storage test fixtures use `dbx_core::persistence::test_storage` (the `test-support` dev-dependency feature). They resolve their own data-directory keys before migration preflight, without accessing the user's Keychain or inheriting `DBX_SECRET_KEY` / `DBX_SECRET_KEY_FILE`. Keep the fixture directory and its key together when testing database copies.
+Core, desktop and Web storage test fixtures use `simbiose7_core::persistence::test_storage` (the `test-support` dev-dependency feature). They resolve their own data-directory keys before migration preflight, without accessing the user's Keychain or inheriting `Simbiose7_SECRET_KEY` / `Simbiose7_SECRET_KEY_FILE`. Keep the fixture directory and its key together when testing database copies.
 
 ```bash
 node --test scripts/dev-tauri.test.mjs
-DBX_TEST_MACOS_KEYCHAIN=1 node --test scripts/dev-tauri.test.mjs
+Simbiose7_TEST_MACOS_KEYCHAIN=1 node --test scripts/dev-tauri.test.mjs
 ```
 
 The opt-in macOS integration test creates and removes a temporary signing keychain. It verifies that an ad-hoc rebuild is denied and that two different builds signed with the same identity can read the same test item with system interaction disabled.
@@ -72,7 +72,7 @@ cd agents
 
 Do not manually edit `agents/versions.json` when changing an existing agent; the release workflow automatically bumps changed modules. Only new drivers add an initial version. New Java/JDBC drivers also update `agents/settings.gradle` and the supported-agent table; native drivers register their artifacts through the agent authoring/release checklist.
 
-For a real local Java agent test, build the target `shadowJar`, back up and replace `~/.dbx/agents/drivers/<db_type>/agent.jar`, then restart DBX or reconnect the database. See the [complete website tutorial](https://dbxio.com/en/docs/contributing) for exact commands.
+For a real local Java agent test, build the target `shadowJar`, back up and replace `~/.simbiose7/agents/drivers/<db_type>/agent.jar`, then restart Simbiose7 or reconnect the database. See the [complete website tutorial](https://destiny7.com/en/docs/contributing) for exact commands.
 
 ## Project Layout
 
@@ -80,11 +80,11 @@ For a real local Java agent test, build the target `shadowJar`, back up and repl
 | --- | --- |
 | `apps/desktop/src/` | Vue frontend |
 | `src-tauri/` | Tauri desktop shell and command layer |
-| `crates/dbx-core/` | Shared Rust database logic |
-| `crates/dbx-web/` | Docker / Web HTTP backend |
-| `packages/cli/` | `@dbx-app/cli` |
-| `packages/mcp-server/` | `@dbx-app/mcp-server` |
-| `packages/plugin-cli/` | Precompiled `@dbx-app/plugin-cli` launcher and bundled plugin SDKs |
+| `crates/simbiose7-core/` | Shared Rust database logic |
+| `crates/simbiose7-web/` | Docker / Web HTTP backend |
+| `packages/cli/` | `@simbiose7/cli` |
+| `packages/mcp-server/` | `@simbiose7/mcp-server` |
+| `packages/plugin-cli/` | Precompiled `@simbiose7/plugin-cli` launcher and bundled plugin SDKs |
 | `packages/mongo-shell/` | Private MongoDB editor parsing helpers |
 | `docs/` | Official documentation site |
 | `examples/` | Sample configs and automation scripts |
@@ -152,7 +152,7 @@ make docs
 ## Pull Requests
 
 1. Push your branch to your fork.
-2. Open a PR against `https://github.com/t8y2/dbx` `main`.
+2. Open a PR against `https://github.com/Mauricio-HNS/Simbiose7` `main`.
 3. Link the related issue in the PR description.
 4. Explain what changed, how you tested it, and any screenshots if the UI changed.
 
@@ -169,7 +169,7 @@ Small PRs are easier to review and merge.
 ## Community
 
 - [Discord](https://discord.gg/W7NyVDRt6a)
-- [GitHub Issues](https://github.com/t8y2/dbx/issues)
-- [Official docs](https://dbxio.com/en/docs/what-is-dbx)
+- [GitHub Issues](https://github.com/Mauricio-HNS/Simbiose7/issues)
+- [Official docs](https://destiny7.com/en/docs/what-is-dbx)
 
-Merged contributors appear on the [DBX contributors wall](https://dbxio.com/en/community).
+Merged contributors appear on the [Simbiose7 contributors wall](https://destiny7.com/en/community).
