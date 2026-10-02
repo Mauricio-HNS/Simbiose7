@@ -1,26 +1,26 @@
 {
   "name": "@simbiose7/mcp-server",
   "version": "0.4.102",
-  "description": "MCP server for DBX — query databases from Claude Code, Cursor, and other AI agents",
+  "description": "MCP server for Simbiose7 — query databases from Claude Code, Cursor, and other AI agents",
   "keywords": [
     "ai-agent",
     "claude",
     "database",
-    "dbx",
+    "simbiose7",
     "mcp",
     "mysql",
     "postgresql"
   ],
-  "homepage": "https://github.com/t8y2/dbx/tree/main/packages/mcp-server",
+  "homepage": "https://github.com/Mauricio-HNS/simbiose7/tree/main/packages/mcp-server",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/t8y2/dbx",
+    "url": "https://github.com/Mauricio-HNS/simbiose7",
     "directory": "packages/mcp-server"
   },
   "bin": {
-    "dbx-mcp-server": "bin/dbx-mcp-server.js",
-    "mcp-server": "bin/dbx-mcp-server.js"
+    "simbiose7-mcp-server": "bin/simbiose7-mcp-server.js",
+    "mcp-server": "bin/simbiose7-mcp-server.js"
   },
   "files": [
     "bin",
@@ -28,10 +28,10 @@
   ],
   "type": "module",
   "scripts": {
-    "start": "cargo run -p dbx-mcp --",
-    "test": "cargo build -p dbx-mcp && vitest run --config vitest.config.ts",
-    "build": "node --check bin/dbx-mcp-server.js",
-    "prepublishOnly": "node bin/dbx-mcp-server.js --verify-platform"
+    "start": "cargo run -p simbiose7-mcp --",
+    "test": "cargo build -p simbiose7-mcp && vitest run --config vitest.config.ts",
+    "build": "node --check bin/simbiose7-mcp-server.js",
+    "prepublishOnly": "node bin/simbiose7-mcp-server.js --verify-platform"
   },
   "optionalDependencies": {
     "@simbiose7/mcp-darwin-arm64": "0.4.102",
@@ -48,5 +48,5 @@
   "engines": {
     "node": ">=18.18.0"
   },
-  "mcpName": "io.github.t8y2/dbx"
+  "mcpName": "io.github.Mauricio-HNS/simbiose7"
 }
