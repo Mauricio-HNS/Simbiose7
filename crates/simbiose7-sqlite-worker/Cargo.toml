@@ -1,5 +1,5 @@
 [package]
-name = "dbx-sqlite-worker"
+name = "simbiose7-sqlite-worker"
 version = "0.1.1"
 edition = "2021"
 license = "Apache-2.0"
@@ -7,7 +7,7 @@ description = "Short-lived SQLite worker process for remote file-host access ove
 publish = false
 
 [[bin]]
-name = "dbx-sqlite-worker"
+name = "simbiose7-sqlite-worker"
 path = "src/main.rs"
 required-features = ["runtime"]
 
