@@ -52,7 +52,7 @@ The first run creates a dedicated signing keychain and a self-signed certificate
 
 The runner is restricted to `debug/dbx`, preserves Cargo feature and application arguments, and does not run for Linux, Windows, or release packaging. Custom `CARGO_TARGET_*_RUNNER` variables must be unset for these macOS development entry points.
 
-Core, desktop and Web storage test fixtures use `simbiose7_core::persistence::test_storage` (the `test-support` dev-dependency feature). They resolve their own data-directory keys before migration preflight, without accessing the user's Keychain or inheriting `Simbiose7_SECRET_KEY` / `Simbiose7_SECRET_KEY_FILE`. Keep the fixture directory and its key together when testing database copies.
+Core, desktop and Web storage test fixtures use `dbx_core::persistence::test_storage` (the `test-support` dev-dependency feature). They resolve their own data-directory keys before migration preflight, without accessing the user's Keychain or inheriting `Simbiose7_SECRET_KEY` / `Simbiose7_SECRET_KEY_FILE`. Keep the fixture directory and its key together when testing database copies.
 
 ```bash
 node --test scripts/dev-tauri.test.mjs
@@ -80,7 +80,7 @@ For a real local Java agent test, build the target `shadowJar`, back up and repl
 | --- | --- |
 | `apps/desktop/src/` | Vue frontend |
 | `src-tauri/` | Tauri desktop shell and command layer |
-| `crates/simbiose7-core/` | Shared Rust database logic |
+| `crates/dbx-core/` | Shared Rust database logic |
 | `crates/simbiose7-web/` | Docker / Web HTTP backend |
 | `packages/cli/` | `@simbiose7/cli` |
 | `packages/mcp-server/` | `@simbiose7/mcp-server` |
