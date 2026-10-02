@@ -1,13 +1,13 @@
 [package]
-name = "dbx-driver-mongodb"
+name = "simbiose7-driver-mongodb"
 version = "0.1.0"
 edition = "2021"
 license = "Apache-2.0"
 publish = false
 
 [dependencies]
-dbx-driver-support = { path = "../dbx-driver-support" }
-dbx-types = { path = "../dbx-types", default-features = false }
+simbiose7-driver-support = { path = "../simbiose7-driver-support" }
+simbiose7-types = { path = "../simbiose7-types", default-features = false }
 base64 = "0.22"
 chrono = { version = "0.4", features = ["serde"] }
 futures = "0.3"
