@@ -12,11 +12,11 @@ pub mod session;
 pub mod transaction;
 pub mod transport;
 
-pub use backend::{ConnectionSummary, DbxBackend, LocalBackend, WebBackend};
-pub use dbx_core::mongo_shell as mongo;
+pub use backend::{ConnectionSummary, Simbiose7Backend, LocalBackend, WebBackend};
+pub use simbiose7_core::mongo_shell as mongo;
 pub use http::{serve_streamable_http_on_listener, serve_streamable_http_with_shutdown, streamable_http_router};
 pub use http_auth::HttpAuth;
 pub use runtime::{HttpRuntimeConfig, McpTransport, RuntimeConfig};
-pub use server::{DbxMcpServer, McpScope};
+pub use server::{Simbiose7McpServer, McpScope};
 pub use session::McpSessionStore;
 pub use transport::with_legacy_discovery_fallback;
