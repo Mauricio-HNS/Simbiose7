@@ -1,12 +1,12 @@
 [package]
-name = "dbx-sql-dialect"
+name = "simbiose7-sql-dialect"
 version = "0.1.0"
 edition = "2021"
 license = "Apache-2.0"
 publish = false
 
 [dependencies]
-dbx-types = { path = "../dbx-types", default-features = false }
+simbiose7-types = { path = "../simbiose7-types", default-features = false }
 chrono = { version = "0.4", features = ["serde"] }
 log = "0.4"
 notify = { version = "7", default-features = false, features = ["macos_kqueue"] }
