@@ -21,7 +21,7 @@
     "directory": "packages/cli"
   },
   "bin": {
-    "dbx": "bin/dbx.js"
+    "simbiose7": "bin/simbiose7.js"
   },
   "files": [
     "bin"
@@ -31,7 +31,7 @@
     "start": "cargo run -p dbx-cli --no-default-features --",
     "test": "cargo nextest run -p dbx-cli --no-default-features --no-fail-fast",
     "build": "cargo build -p dbx-cli --release --no-default-features",
-    "prepublishOnly": "node --check bin/dbx.js"
+    "prepublishOnly": "node --check bin/simbiose7.js"
   },
   "optionalDependencies": {
     "@simbiose7/cli-darwin-arm64": "0.4.102",
