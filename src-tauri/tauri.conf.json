@@ -36,8 +36,8 @@
       {"ext":["db","sqlite","sqlite3","duckdb"],"name":"Database File","description":"Database file","role":"Editor"}
     ],
     "linux": {
-      "deb": {"desktopTemplate":"linux/DBX.desktop"},
-      "rpm": {"desktopTemplate":"linux/DBX.desktop"}
+      "deb": {"desktopTemplate":"linux/Simbiose7.desktop"},
+      "rpm": {"desktopTemplate":"linux/Simbiose7.desktop"}
     },
     "macOS": {"entitlements":"Entitlements.plist"},
     "windows": {
