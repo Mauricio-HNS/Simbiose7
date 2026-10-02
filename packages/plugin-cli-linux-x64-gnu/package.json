@@ -1,11 +1,11 @@
 {
-  "name": "@dbx-app/plugin-cli-linux-x64-gnu",
+  "name": "@simbiose7/plugin-cli-linux-x64-gnu",
   "version": "0.1.9",
-  "description": "Precompiled DBX Plugin CLI binary for linux x64",
+  "description": "Precompiled Simbiose7 Plugin CLI binary for linux x64",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/t8y2/dbx",
+    "url": "https://github.com/Mauricio-HNS/Simbiose7",
     "directory": "packages/plugin-cli-linux-x64-gnu"
   },
   "os": [
@@ -18,7 +18,7 @@
     "glibc"
   ],
   "bin": {
-    "dbx-plugin-native": "bin/dbx-plugin"
+    "simbiose7-plugin-native": "bin/simbiose7-plugin"
   },
   "files": [
     "bin"
