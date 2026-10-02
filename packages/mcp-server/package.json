@@ -28,8 +28,8 @@
   ],
   "type": "module",
   "scripts": {
-    "start": "cargo run -p simbiose7-mcp --",
-    "test": "cargo build -p simbiose7-mcp && vitest run --config vitest.config.ts",
+    "start": "cargo run -p dbx-mcp --",
+    "test": "cargo build -p dbx-mcp && vitest run --config vitest.config.ts",
     "build": "node --check bin/simbiose7-mcp-server.js",
     "prepublishOnly": "node bin/simbiose7-mcp-server.js --verify-platform"
   },
