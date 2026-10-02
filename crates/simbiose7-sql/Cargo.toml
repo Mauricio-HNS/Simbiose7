@@ -1,5 +1,5 @@
 [package]
-name = "dbx-sql"
+name = "simbiose7-sql"
 version = "0.1.0"
 edition = "2021"
 license = "Apache-2.0"
@@ -7,12 +7,12 @@ publish = false
 
 [features]
 default = []
-duckdb-sidecar = ["dbx-sql-schema/duckdb-sidecar"]
-openapi = ["dbx-sql-data/openapi", "dbx-types/openapi"]
+duckdb-sidecar = ["simbiose7-sql-schema/duckdb-sidecar"]
+openapi = ["simbiose7-sql-data/openapi", "simbiose7-types/openapi"]
 
 [dependencies]
-dbx-sql-core = { path = "../dbx-sql-core" }
-dbx-sql-data = { path = "../dbx-sql-data" }
-dbx-sql-dialect = { path = "../dbx-sql-dialect" }
-dbx-sql-schema = { path = "../dbx-sql-schema" }
-dbx-types = { path = "../dbx-types", default-features = false }
+simbiose7-sql-core = { path = "../simbiose7-sql-core" }
+simbiose7-sql-data = { path = "../simbiose7-sql-data" }
+simbiose7-sql-dialect = { path = "../simbiose7-sql-dialect" }
+simbiose7-sql-schema = { path = "../simbiose7-sql-schema" }
+simbiose7-types = { path = "../simbiose7-types", default-features = false }
